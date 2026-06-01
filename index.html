@@ -12,7 +12,6 @@
 :root {
   --bg:      #07090f;
   --surface: #0d1117;
-  --s2:      #111520;
   --s3:      #161b26;
   --border:  rgba(255,255,255,0.07);
   --border2: rgba(255,255,255,0.13);
@@ -25,7 +24,7 @@
   --todo-c:  #3a4256;
 
   --amber:        #f59e0b;
-  --amber-bg:     rgba(245,158,11,0.08);
+  --amber-bg:     rgba(245,158,11,0.07);
   --amber-border: rgba(245,158,11,0.22);
 
   --p1: #f97316;
@@ -35,6 +34,8 @@
   --p5: #f43f5e;
   --p6: #f59e0b;
   --p7: #22c55e;
+
+  --rail: 36px; /* distance from timeline left edge to rail center */
 }
 
 body {
@@ -48,21 +49,21 @@ body {
 
 /* ── HEADER ── */
 header {
-  padding: 36px 48px 28px;
+  padding: 32px 48px 24px;
   border-bottom: 1px solid var(--border);
   display: flex; align-items: flex-start;
   justify-content: space-between; gap: 32px;
   flex-wrap: wrap;
   position: sticky; top: 0; z-index: 100;
-  background: rgba(7,9,15,0.92);
+  background: rgba(7,9,15,0.93);
   backdrop-filter: blur(20px);
 }
 
-.brand { display: flex; flex-direction: column; gap: 6px; }
+.brand { display: flex; flex-direction: column; gap: 5px; }
 
 .wordmark {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 20px; font-weight: 700; color: #fff;
+  font-size: 19px; font-weight: 700; color: #fff;
   display: flex; align-items: center; gap: 9px;
 }
 
@@ -74,7 +75,7 @@ header {
 
 .tagline {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; color: var(--muted); letter-spacing: 0.3px;
+  font-size: 10.5px; color: var(--muted);
 }
 
 .header-right {
@@ -89,13 +90,11 @@ header {
 
 .progress-block { min-width: 220px; display: flex; flex-direction: column; gap: 7px; }
 
-.progress-row {
-  display: flex; justify-content: space-between; align-items: center;
-}
+.progress-row { display: flex; justify-content: space-between; align-items: center; }
 
 .prog-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px; letter-spacing: 1.5px;
+  font-size: 9px; letter-spacing: 1.5px;
   text-transform: uppercase; color: var(--muted);
 }
 
@@ -115,15 +114,15 @@ header {
 .stat {
   display: flex; align-items: center; gap: 5px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px; color: var(--muted);
+  font-size: 10px; color: var(--muted);
 }
 .sdot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
-/* ── TIMELINE WRAPPER ── */
+/* ── TIMELINE ── */
 .timeline {
-  max-width: 780px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 52px 48px 80px;
+  padding: 48px 48px 80px 80px; /* left:80px = rail(36) + content gap(44) */
   position: relative;
 }
 
@@ -131,184 +130,165 @@ header {
 .timeline::before {
   content: '';
   position: absolute;
-  left: 80px;
-  top: 52px; bottom: 80px;
+  left: var(--rail);
+  top: 48px; bottom: 80px;
   width: 1px;
-  background: linear-gradient(180deg, transparent 0%, var(--border2) 5%, var(--border2) 95%, transparent 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--border2) 4%,
+    var(--border2) 96%,
+    transparent 100%
+  );
 }
 
-/* ── PHASE BLOCK ── */
+/* ── PHASE ── */
 .phase {
   position: relative;
-  margin-bottom: 48px;
+  margin-bottom: 44px;
+}
+
+/* dot on the rail — positioned relative to .phase left edge = timeline padding-left = 80px */
+.phase-dot {
+  position: absolute;
+  /* center on rail: rail(36) - phase-left-offset(80) = -44px, then shift by half dot width */
+  left: -44px;
+  top: 1px;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 500; letter-spacing: 0.5px;
+  background: var(--bg);
+  z-index: 2;
+  transform: translateX(-50%);
 }
 
 .phase-header {
-  display: flex; align-items: center;
-  gap: 0; margin-bottom: 16px;
-  position: relative;
-}
-
-/* dot on the rail */
-.phase-dot {
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 2px solid;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; font-weight: 500;
-  position: absolute; left: 80px;
-  transform: translateX(-50%);
-  background: var(--bg);
-  z-index: 2;
-  flex-shrink: 0;
-}
-
-.phase-name-wrap {
-  margin-left: 56px; /* 80px rail - 28px/2 + gap */
   display: flex; flex-direction: column; gap: 2px;
+  margin-bottom: 14px;
+  padding-left: 0;
 }
 
 .phase-name {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 14px; font-weight: 700;
-  letter-spacing: 0.2px;
 }
 
 .phase-sub {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--muted); letter-spacing: 0.3px;
+  font-size: 10px; color: var(--muted);
 }
 
-/* tasks container */
-.tasks {
-  margin-left: 56px;
-  display: flex; flex-direction: column; gap: 6px;
-}
+/* tasks list */
+.tasks { display: flex; flex-direction: column; gap: 6px; }
 
-/* ── TASK ROW ── */
+/* ── TASK ── */
 .task {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 11px 14px;
+  display: flex; align-items: flex-start; gap: 11px;
+  padding: 11px 13px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
-  transition: border-color 0.15s;
 }
 
-.task.is-done {
-  opacity: 0.55;
-}
-
+.task.is-done { opacity: 0.5; }
 .task.is-done .task-title {
   text-decoration: line-through;
   text-decoration-color: var(--muted);
 }
 
-.task-status {
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.status-icon {
+.task-icon {
   width: 18px; height: 18px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px;
+  font-size: 10px; flex-shrink: 0; margin-top: 1px;
 }
-
-.icon-done     { background: rgba(34,197,94,0.15);  color: var(--done-c); }
-.icon-progress { background: rgba(59,130,246,0.15); color: var(--prog-c); }
+.icon-done     { background: rgba(34,197,94,0.13);  color: var(--done-c); }
+.icon-progress { background: rgba(59,130,246,0.13); color: var(--prog-c); }
 .icon-todo     { background: var(--dim); color: var(--muted); }
 
 .task-body { flex: 1; min-width: 0; }
 
 .task-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 13px; font-weight: 600; color: #fff;
-  line-height: 1.3; margin-bottom: 3px;
+  font-size: 13px; font-weight: 600;
+  color: #fff; line-height: 1.3; margin-bottom: 3px;
 }
 
 .task-desc {
   font-size: 11.5px; color: var(--muted);
-  line-height: 1.55; letter-spacing: 0.1px;
-}
-
-.task-badge {
-  flex-shrink: 0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; letter-spacing: 0.8px;
-  text-transform: uppercase;
-  padding: 2px 7px; border-radius: 3px;
-  border: 1px solid; margin-top: 2px;
-  white-space: nowrap;
-  align-self: flex-start;
-}
-
-.badge-done     { color: var(--done-c); border-color: rgba(34,197,94,0.25);  background: rgba(34,197,94,0.08); }
-.badge-progress { color: var(--prog-c); border-color: rgba(59,130,246,0.25); background: rgba(59,130,246,0.08); }
-.badge-todo     { color: var(--muted);  border-color: var(--border);          background: transparent; }
-
-/* ── MILESTONE BLOCKER ── */
-.milestone {
-  margin-left: 56px;
-  margin-bottom: 6px;
-  padding: 12px 16px;
-  background: var(--amber-bg);
-  border: 1px solid var(--amber-border);
-  border-radius: 8px;
-  display: flex; align-items: flex-start; gap: 12px;
-}
-
-.milestone-icon {
-  font-size: 16px; flex-shrink: 0; margin-top: 1px;
-  line-height: 1;
-}
-
-.milestone-body { flex: 1; }
-
-.milestone-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--amber);
-  margin-bottom: 3px;
-}
-
-.milestone-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 13px; font-weight: 600; color: var(--amber);
-  margin-bottom: 3px; line-height: 1.3;
-}
-
-.milestone-desc {
-  font-size: 11.5px; color: rgba(245,158,11,0.6);
   line-height: 1.55;
 }
 
-.milestone-status {
+.task-badge {
   flex-shrink: 0; align-self: flex-start; margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 3px; border: 1px solid;
+  white-space: nowrap;
 }
+.badge-done     { color: var(--done-c); border-color: rgba(34,197,94,0.25);  background: rgba(34,197,94,0.08); }
+.badge-progress { color: var(--prog-c); border-color: rgba(59,130,246,0.25); background: rgba(59,130,246,0.08); }
+.badge-todo     { color: var(--muted);  border-color: var(--border); }
+
+/* ── MILESTONE ── */
+.milestone {
+  padding: 12px 14px;
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  border-radius: 8px;
+  display: flex; align-items: flex-start; gap: 11px;
+}
+
+.ms-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; line-height: 1; }
+
+.ms-body { flex: 1; }
+
+.ms-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 3px;
+}
+
+.ms-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--amber); margin-bottom: 3px; line-height: 1.3;
+}
+
+.ms-desc { font-size: 11.5px; color: rgba(245,158,11,0.55); line-height: 1.55; }
+
+.ms-badge {
+  flex-shrink: 0; align-self: flex-start; margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 3px; border: 1px solid;
+  white-space: nowrap;
+}
+.ms-todo     { color: var(--amber); border-color: var(--amber-border); }
+.ms-progress { color: var(--prog-c); border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.08); }
+.ms-done     { color: var(--done-c); border-color: rgba(34,197,94,0.3);  background: rgba(34,197,94,0.08); }
 
 /* ── PHASE COLORS ── */
 .ph1 { border-color: var(--p1); color: var(--p1); }
-.ph1 .phase-name { color: var(--p1); }
+.ph1n { color: var(--p1); }
 .ph2 { border-color: var(--p2); color: var(--p2); }
-.ph2 .phase-name { color: var(--p2); }
+.ph2n { color: var(--p2); }
 .ph3 { border-color: var(--p3); color: var(--p3); }
-.ph3 .phase-name { color: var(--p3); }
+.ph3n { color: var(--p3); }
 .ph4 { border-color: var(--p4); color: var(--p4); }
-.ph4 .phase-name { color: var(--p4); }
+.ph4n { color: var(--p4); }
 .ph5 { border-color: var(--p5); color: var(--p5); }
-.ph5 .phase-name { color: var(--p5); }
+.ph5n { color: var(--p5); }
 .ph6 { border-color: var(--p6); color: var(--p6); }
-.ph6 .phase-name { color: var(--p6); }
+.ph6n { color: var(--p6); }
 .ph7 { border-color: var(--p7); color: var(--p7); }
-.ph7 .phase-name { color: var(--p7); }
+.ph7n { color: var(--p7); }
 
-@media (max-width: 640px) {
-  header { padding: 20px 20px 18px; }
-  .timeline { padding: 36px 20px 60px; }
-  .timeline::before { left: 20px; }
-  .phase-dot { left: 20px; }
-  .phase-name-wrap, .tasks, .milestone { margin-left: 34px; }
+@media (max-width: 600px) {
+  header { padding: 20px; }
+  .timeline { padding: 36px 20px 60px 64px; }
   .header-right { align-items: flex-start; }
 }
 </style>
@@ -340,183 +320,174 @@ header {
 <div class="timeline" id="timeline"></div>
 
 <script>
-// ─────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
 //  EDITAR AQUÍ PARA ACTUALIZAR EL ROADMAP
-//  s: 'todo' | 'progress' | 'done'
-// ─────────────────────────────────────────
+//  type: 'task' | 'milestone'
+//  s:    'todo' | 'progress' | 'done'
+// ─────────────────────────────────────────────────────────
 
 const PHASES = [
   {
-    id: 1, cls: 'ph1', num: 'F1',
-    name: 'Setup', sub: 'Análisis y configuración del entorno',
+    num: 'F1', cls: 'ph1', nameCls: 'ph1n',
+    name: 'Setup',
+    sub:  'Análisis y configuración del entorno — sin contacto con Pablo',
     items: [
       { type:'task', s:'done',     title:'Exportar código de Horizons',      desc:'Código fuente descargado y disponible en entorno local.' },
-      { type:'task', s:'done',     title:'Análisis del código exportado',    desc:'Stack confirmado: React 18 + Vite, PocketBase, shadcn/ui, Tailwind, Framer Motion. Wallet MetaMask ya implementada.' },
+      { type:'task', s:'done',     title:'Análisis del código exportado',    desc:'Stack confirmado: React 18 + Vite, PocketBase, shadcn/ui, Tailwind, Framer Motion. MetaMask ya integrado.' },
       { type:'task', s:'progress', title:'Configurar repositorio local',     desc:'Estructura del proyecto en máquina del desarrollador. Roadmap publicado en GitHub Pages.' },
       { type:'task', s:'todo',     title:'Entorno de desarrollo blockchain', desc:'Instalar Hardhat. Configurar RPC de Base Sepolia. Variables de entorno.' },
     ]
   },
   {
-    id: 2, cls: 'ph2', num: 'F2',
-    name: 'Smart Contracts', sub: 'Token ERC-20 y contrato de votación',
+    num: 'F2', cls: 'ph2', nameCls: 'ph2n',
+    name: 'Smart Contracts',
+    sub:  'Token ERC-20 y contrato de votación — wallet del desarrollador en testnet',
     items: [
-      { type:'milestone', s:'todo', title:'Dirección de wallet del cliente', desc:'Necesaria antes del deploy: el contrato mintea los 144,000,000,000 WLT directamente a esa wallet en el momento del deploy. Sin esta dirección no se puede continuar.' },
-      { type:'task', s:'todo', title:'Token WLT (ERC-20)',               desc:'OpenZeppelin ERC-20. Supply fijo: 144,000,000,000 WLT. Mint inicial completo a wallet del cliente.' },
-      { type:'task', s:'todo', title:'Contrato de votación',             desc:'Balance mínimo 1,000 WLT para votar. Un voto por wallet por elección. Eventos Vote() para indexar.' },
-      { type:'task', s:'todo', title:'Tests unitarios',                  desc:'Cobertura completa: mint, transferencia, votación válida, balance insuficiente, voto duplicado.' },
-      { type:'task', s:'todo', title:'Deploy en Base Sepolia',           desc:'Deploy de WLTToken.sol y Voting.sol en testnet. Verificar en BaseScan. Documentar contract addresses.' },
+      { type:'task', s:'todo', title:'Token WLT (ERC-20)',       desc:'OpenZeppelin ERC-20. Supply fijo: 144,000,000,000 WLT. En testnet se mintea a la wallet del desarrollador.' },
+      { type:'task', s:'todo', title:'Contrato de votación',     desc:'Balance mínimo 1,000 WLT para votar. Un voto por wallet por elección. Eventos Vote() para indexar en el backend.' },
+      { type:'task', s:'todo', title:'Tests unitarios',          desc:'Cobertura completa: mint, transferencia, votación válida, balance insuficiente, voto duplicado.' },
+      { type:'task', s:'todo', title:'Deploy en Base Sepolia',   desc:'Deploy de WLTToken.sol y Voting.sol en testnet con wallet del desarrollador. Documentar contract addresses.' },
     ]
   },
   {
-    id: 3, cls: 'ph3', num: 'F3',
-    name: 'Backend', sub: 'API REST e indexador de eventos',
+    num: 'F3', cls: 'ph3', nameCls: 'ph3n',
+    name: 'Backend',
+    sub:  'API REST e indexador de eventos — sin contacto con Pablo',
     items: [
-      { type:'task', s:'todo', title:'Setup servidor Node.js',           desc:'Express/Fastify en /backend. Estructura de carpetas: indexer/, api/, db/.' },
-      { type:'task', s:'todo', title:'Base de datos y modelos',          desc:'SQLite para MVP. Modelos: candidates, votes. Migraciones.' },
-      { type:'task', s:'todo', title:'Indexador de eventos blockchain',  desc:'Listener de eventos Vote() del contrato. Re-sincronización al iniciar. Guardado en DB.' },
-      { type:'task', s:'todo', title:'API REST',                        desc:'GET /candidates · GET /results · GET /wallet/:address/status. CORS configurado para el frontend.' },
+      { type:'task', s:'todo', title:'Setup servidor Node.js',          desc:'Express/Fastify en /backend. Estructura: indexer/, api/, db/.' },
+      { type:'task', s:'todo', title:'Base de datos y modelos',         desc:'SQLite para MVP (PostgreSQL en producción). Modelos: candidates, votes.' },
+      { type:'task', s:'todo', title:'Indexador de eventos blockchain', desc:'Listener de eventos Vote() del contrato. Re-sincronización al iniciar. Guardado en DB.' },
+      { type:'task', s:'todo', title:'API REST',                       desc:'GET /candidates · GET /results · GET /wallet/:address/status. CORS configurado.' },
     ]
   },
   {
-    id: 4, cls: 'ph4', num: 'F4',
-    name: 'Frontend', sub: 'Migración y nuevas funcionalidades',
+    num: 'F4', cls: 'ph4', nameCls: 'ph4n',
+    name: 'Frontend',
+    sub:  'Migración y funcionalidades Web3 — sin contacto con Pablo',
     items: [
-      { type:'task', s:'progress', title:'Migrar frontend de Horizons',  desc:'Limpiar plugins de Horizons de vite.config.js. Adaptar PocketBase URL para local.' },
-      { type:'task', s:'todo', title:'Integrar wagmi + viem',            desc:'Reemplazar WalletContext por wagmi. Soporte para Base Mainnet y Base Sepolia. Detección de red incorrecta.' },
-      { type:'task', s:'todo', title:'Pantalla de votación',             desc:'Lista de candidatos con foto y descripción. Verificación de balance mínimo. Transacción de voto.' },
-      { type:'task', s:'todo', title:'Dashboard de resultados',          desc:'Popular Vote + WLT Support Score por candidato. Consumo de API REST. Actualización periódica.' },
-      { type:'task', s:'todo', title:'Responsive y polish',              desc:'Testing mobile-first. Ajustes de animaciones con Framer Motion. Revisión visual completa.' },
+      { type:'task', s:'progress', title:'Migrar frontend de Horizons', desc:'Limpiar plugins de Horizons de vite.config.js. Adaptar PocketBase URL para local.' },
+      { type:'task', s:'todo', title:'Integrar wagmi + viem',           desc:'Reemplazar WalletContext actual por wagmi. Soporte para Base Mainnet y Base Sepolia. Detección de red incorrecta.' },
+      { type:'task', s:'todo', title:'Pantalla de votación',            desc:'Lista de candidatos con foto y descripción. Verificación de balance mínimo. Transacción de voto.' },
+      { type:'task', s:'todo', title:'Dashboard de resultados',         desc:'Popular Vote + WLT Support Score por candidato. Consumo de API REST. Actualización periódica.' },
+      { type:'task', s:'todo', title:'Responsive y polish',             desc:'Testing mobile-first. Ajustes de animaciones Framer Motion. Revisión visual completa.' },
     ]
   },
   {
-    id: 5, cls: 'ph5', num: 'F5',
-    name: 'Integración y Testing', sub: 'Flujo completo en testnet',
+    num: 'F5', cls: 'ph5', nameCls: 'ph5n',
+    name: 'Integración y Testing',
+    sub:  'Flujo completo en Base Sepolia — sin contacto con Pablo',
     items: [
       { type:'task', s:'todo', title:'Integración end-to-end en testnet', desc:'Conectar frontend → backend → contratos en Base Sepolia. Flujo completo de votación.' },
       { type:'task', s:'todo', title:'Testing completo',                  desc:'Casos borde: wallet sin fondos, voto doble, red incorrecta, candidato inválido.' },
       { type:'task', s:'todo', title:'Fix de bugs',                      desc:'Resolución de issues del testing. Revisión de seguridad básica de contratos y API.' },
-      { type:'milestone', s:'todo', title:'Demo al cliente en testnet',  desc:'Mostrar el flujo completo funcionando en Base Sepolia. Punto de validación antes de pasar a producción.' },
     ]
   },
   {
-    id: 6, cls: 'ph6', num: 'F6',
-    name: 'Traspaso al cliente', sub: 'Transferencia de código e infraestructura',
+    num: 'F6', cls: 'ph6', nameCls: 'ph6n',
+    name: 'Traspaso a Pablo',
+    sub:  'Primera vez que se necesita contactar a Pablo',
     items: [
-      { type:'milestone', s:'todo', title:'Cliente crea cuenta en GitHub',      desc:'Crear repositorio privado. Agregar al desarrollador como colaborador. El código se transfiere en este momento.' },
-      { type:'task',      s:'todo', title:'Migrar repo al GitHub del cliente',  desc:'Push del historial completo al repo del cliente. Verificar accesos.' },
-      { type:'milestone', s:'todo', title:'Cliente crea cuenta en Railway',     desc:'Railway necesita tarjeta de crédito (~$5/mes plan Hobby). Agregar al desarrollador como colaborador.' },
-      { type:'milestone', s:'todo', title:'Cliente crea cuenta en Vercel',      desc:'Conectar a su GitHub. Agregar al desarrollador como colaborador.' },
-      { type:'task',      s:'todo', title:'Configurar variables de entorno',    desc:'Variables de producción en Railway y Vercel apuntando a contratos de mainnet.' },
+      { type:'milestone', s:'todo', title:'Demo a Pablo en testnet',                desc:'Mostrar el flujo completo funcionando en Base Sepolia. Punto de validación y aprobación antes de ir a producción.' },
+      { type:'milestone', s:'todo', title:'Pablo crea cuenta en GitHub',            desc:'Crear repositorio privado y agregar al desarrollador como colaborador. El código se transfiere en este momento.' },
+      { type:'task',      s:'todo', title:'Migrar repo al GitHub de Pablo',         desc:'Push del historial completo al repositorio de Pablo. Verificar accesos y permisos.' },
+      { type:'milestone', s:'todo', title:'Pablo crea cuenta en Railway',           desc:'Necesita tarjeta de crédito (~$5/mes, plan Hobby). Agregar al desarrollador como colaborador del proyecto.' },
+      { type:'milestone', s:'todo', title:'Pablo crea cuenta en Vercel',            desc:'Conectar su GitHub a Vercel. Agregar al desarrollador como colaborador.' },
+      { type:'task',      s:'todo', title:'Configurar variables de entorno',        desc:'Variables de producción en Railway y Vercel apuntando a los contratos de mainnet.' },
     ]
   },
   {
-    id: 7, cls: 'ph7', num: 'F7',
-    name: 'Producción', sub: 'Deploy final en Base Mainnet',
+    num: 'F7', cls: 'ph7', nameCls: 'ph7n',
+    name: 'Producción',
+    sub:  'Deploy final en Base Mainnet',
     items: [
-      { type:'milestone', s:'todo', title:'Cliente carga ETH en su wallet',     desc:'Necesario para pagar el gas del deploy en mainnet. Estimado: $5–20 USD en ETH sobre Base Mainnet.' },
-      { type:'task',      s:'todo', title:'Deploy contratos en Base Mainnet',   desc:'Deploy definitivo de WLTToken y Voting. Mint de 144,000,000,000 WLT a wallet del cliente.' },
-      { type:'task',      s:'todo', title:'Deploy backend en Railway',          desc:'Producción en Railway del cliente. Base de datos PostgreSQL. Indexador apuntando a mainnet.' },
-      { type:'task',      s:'todo', title:'Deploy frontend en Vercel',          desc:'Build de producción. Variables apuntando a contratos en mainnet y backend en Railway.' },
-      { type:'milestone', s:'todo', title:'Migrar DNS worldlider.com a Vercel', desc:'Cambiar nameservers o registros A/CNAME en panel de Hostinger. SSL automático vía Vercel.' },
-      { type:'task',      s:'todo', title:'Testing final en producción',        desc:'Smoke test completo en mainnet. Verificar dashboard, votación y conexión de wallet. Cierre del proyecto.' },
+      { type:'milestone', s:'todo', title:'Pablo comparte su dirección de wallet',  desc:'Dirección pública de la wallet que recibirá el mint inicial de 144,000,000,000 WLT. Nunca compartir clave privada.' },
+      { type:'milestone', s:'todo', title:'Pablo carga ETH en su wallet',           desc:'Necesario para pagar el gas del deploy en mainnet. Estimado: $5–20 USD en ETH sobre Base Mainnet.' },
+      { type:'task',      s:'todo', title:'Deploy contratos en Base Mainnet',       desc:'Deploy definitivo de WLTToken y Voting. Mint de 144,000,000,000 WLT a la wallet de Pablo.' },
+      { type:'task',      s:'todo', title:'Deploy backend en Railway',              desc:'Producción en Railway de Pablo. Base de datos PostgreSQL. Indexador apuntando a mainnet.' },
+      { type:'task',      s:'todo', title:'Deploy frontend en Vercel',              desc:'Build de producción. Variables apuntando a contratos en mainnet y backend en Railway.' },
+      { type:'milestone', s:'todo', title:'Migrar DNS worldlider.com a Vercel',     desc:'Cambiar nameservers o registros A/CNAME en panel de Hostinger. SSL automático vía Vercel.' },
+      { type:'task',      s:'todo', title:'Testing final en producción',            desc:'Smoke test completo en mainnet. Verificar dashboard, votación y wallet. Cierre del proyecto.' },
     ]
   },
 ];
 
-// ─────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
 
-function statusIcon(s) {
-  if (s === 'done')     return '<div class="status-icon icon-done">✓</div>';
-  if (s === 'progress') return '<div class="status-icon icon-progress">●</div>';
-  return '<div class="status-icon icon-todo">○</div>';
-}
-
-function statusBadge(s) {
-  if (s === 'done')     return '<span class="task-badge badge-done">completado</span>';
-  if (s === 'progress') return '<span class="task-badge badge-progress">en curso</span>';
-  return '<span class="task-badge badge-todo">pendiente</span>';
-}
-
-function milestoneStatusBadge(s) {
-  if (s === 'done')     return '<span class="task-badge badge-done" style="align-self:flex-start">listo</span>';
-  if (s === 'progress') return '<span class="task-badge badge-progress" style="align-self:flex-start">en curso</span>';
-  return '<span class="task-badge badge-todo" style="align-self:flex-start;border-color:var(--amber-border);color:var(--amber)">pendiente</span>';
-}
-
-function renderTimeline() {
+function render() {
   const tl = document.getElementById('timeline');
-  let allTasks = 0, doneTasks = 0, progTasks = 0, todoTasks = 0;
+  let all = 0, done = 0, prog = 0, todo = 0;
 
   PHASES.forEach(phase => {
-    const phaseEl = document.createElement('div');
-    phaseEl.className = 'phase';
+    const ph = document.createElement('div');
+    ph.className = 'phase';
 
-    // count only tasks (not milestones) for progress
-    phase.items.filter(i=>i.type==='task').forEach(t => {
-      allTasks++;
-      if (t.s === 'done')     doneTasks++;
-      if (t.s === 'progress') progTasks++;
-      if (t.s === 'todo')     todoTasks++;
+    phase.items.filter(i => i.type === 'task').forEach(t => {
+      all++;
+      if (t.s === 'done')     done++;
+      if (t.s === 'progress') prog++;
+      if (t.s === 'todo')     todo++;
     });
 
     let html = `
+      <div class="phase-dot ${phase.cls}">${phase.num}</div>
       <div class="phase-header">
-        <div class="phase-dot ${phase.cls}">${phase.num}</div>
-        <div class="phase-name-wrap">
-          <div class="phase-name ${phase.cls}">${phase.name}</div>
-          <div class="phase-sub">${phase.sub}</div>
-        </div>
+        <div class="phase-name ${phase.nameCls}">${phase.name}</div>
+        <div class="phase-sub">${phase.sub}</div>
       </div>
       <div class="tasks">
     `;
 
     phase.items.forEach(item => {
       if (item.type === 'milestone') {
+        const bc = item.s === 'done' ? 'ms-done' : item.s === 'progress' ? 'ms-progress' : 'ms-todo';
+        const bl = item.s === 'done' ? 'listo' : item.s === 'progress' ? 'en curso' : 'pendiente';
         html += `
           <div class="milestone">
-            <div class="milestone-icon">⚑</div>
-            <div class="milestone-body">
-              <div class="milestone-label">Acción requerida del cliente</div>
-              <div class="milestone-title">${item.title}</div>
-              <div class="milestone-desc">${item.desc}</div>
+            <div class="ms-icon">⚑</div>
+            <div class="ms-body">
+              <div class="ms-label">Requiere acción de Pablo</div>
+              <div class="ms-title">${item.title}</div>
+              <div class="ms-desc">${item.desc}</div>
             </div>
-            <div class="milestone-status">${milestoneStatusBadge(item.s)}</div>
+            <div class="ms-badge ${bc}">${bl}</div>
           </div>
         `;
       } else {
+        const ic  = item.s === 'done' ? 'icon-done' : item.s === 'progress' ? 'icon-progress' : 'icon-todo';
+        const sym = item.s === 'done' ? '✓' : item.s === 'progress' ? '●' : '○';
+        const bc  = item.s === 'done' ? 'badge-done' : item.s === 'progress' ? 'badge-progress' : 'badge-todo';
+        const bl  = item.s === 'done' ? 'completado' : item.s === 'progress' ? 'en curso' : 'pendiente';
         html += `
           <div class="task ${item.s === 'done' ? 'is-done' : ''}">
-            <div class="task-status">${statusIcon(item.s)}</div>
+            <div class="task-icon ${ic}">${sym}</div>
             <div class="task-body">
               <div class="task-title">${item.title}</div>
               <div class="task-desc">${item.desc}</div>
             </div>
-            ${statusBadge(item.s)}
+            <span class="task-badge ${bc}">${bl}</span>
           </div>
         `;
       }
     });
 
     html += '</div>';
-    phaseEl.innerHTML = html;
-    tl.appendChild(phaseEl);
+    ph.innerHTML = html;
+    tl.appendChild(ph);
   });
 
-  // stats
-  const pct = allTasks ? Math.round(doneTasks / allTasks * 100) : 0;
+  const pct = all ? Math.round(done / all * 100) : 0;
   document.getElementById('pct').textContent = pct + '%';
   document.getElementById('bar').style.width = pct + '%';
-  document.getElementById('c-done').textContent = doneTasks;
-  document.getElementById('c-prog').textContent = progTasks;
-  document.getElementById('c-todo').textContent = todoTasks;
+  document.getElementById('c-done').textContent = done;
+  document.getElementById('c-prog').textContent = prog;
+  document.getElementById('c-todo').textContent = todo;
 
-  // timestamp from last-modified (approximated from git deploy date)
   const d = new Date(document.lastModified);
   document.getElementById('updated').textContent =
     'Actualizado ' + d.toLocaleDateString('es-AR', { day:'2-digit', month:'short', year:'numeric' });
 }
 
-renderTimeline();
+render();
 </script>
 </body>
 </html>
