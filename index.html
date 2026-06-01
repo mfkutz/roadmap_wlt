@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorldLider · Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #07090f;
+  --surface: #0d1117;
+  --s2:      #111520;
+  --s3:      #161b26;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text:    #dde2ed;
+  --muted:   #4a5168;
+  --dim:     #2a2f40;
+
+  --todo-bg:     #0d1117;
+  --todo-border: rgba(255,255,255,0.07);
+  --todo-head:   #3a4256;
+
+  --prog-bg:     #080f1a;
+  --prog-border: rgba(59,130,246,0.2);
+  --prog-head:   #3b82f6;
+
+  --done-bg:     #050f09;
+  --done-border: rgba(34,197,94,0.2);
+  --done-head:   #22c55e;
+
+  --amber: #f59e0b;
+  --amber-bg: rgba(245,158,11,0.1);
+  --amber-border: rgba(245,158,11,0.25);
+
+  --p1: #f97316; --p1b: rgba(249,115,22,0.1);
+  --p2: #a855f7; --p2b: rgba(168,85,247,0.1);
+  --p3: #06b6d4; --p3b: rgba(6,182,212,0.1);
+  --p4: #3b82f6; --p4b: rgba(59,130,246,0.1);
+  --p5: #f43f5e; --p5b: rgba(244,63,94,0.1);
+  --p6: #f59e0b; --p6b: rgba(245,158,11,0.1);
+  --p7: #22c55e; --p7b: rgba(34,197,94,0.1);
+  --p8: #e879f9; --p8b: rgba(232,121,249,0.1);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ── NOISE OVERLAY ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.4;
+}
+
+/* ── HEADER ── */
+header {
+  position: relative; z-index: 10;
+  padding: 40px 48px 32px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 32px;
+  flex-wrap: wrap;
+}
+
+.brand { display: flex; flex-direction: column; gap: 8px; }
+
+.wordmark {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 700;
+  color: #fff; letter-spacing: -0.3px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.wordmark-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #a855f7);
+  flex-shrink: 0;
+}
+
+.tagline {
+  font-size: 11.5px; color: var(--muted);
+  letter-spacing: 0.3px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.header-meta {
+  display: flex; flex-direction: column;
+  align-items: flex-end; gap: 16px;
+}
+
+.updated {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; color: var(--muted);
+}
+
+/* ── PROGRESS ── */
+.progress-block {
+  display: flex; flex-direction: column; gap: 8px;
+  min-width: 240px;
+}
+
+.progress-row {
+  display: flex; justify-content: space-between;
+  align-items: center;
+}
+
+.progress-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted);
+}
+
+.progress-pct {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 600; color: #fff;
+}
+
+.bar-track {
+  height: 3px; background: var(--s3); border-radius: 2px; overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, #3b82f6 0%, #a855f7 50%, #22c55e 100%);
+  background-size: 200% 100%;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.stats-row {
+  display: flex; gap: 16px;
+}
+
+.stat {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.stat-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+
+/* ── PHASE LEGEND ── */
+.legend {
+  position: relative; z-index: 10;
+  padding: 14px 48px;
+  border-bottom: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 8px;
+  align-items: center;
+}
+
+.legend-label {
+  font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-right: 4px;
+}
+
+.pill {
+  display: flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 20px;
+  font-size: 10px; font-weight: 500;
+  border: 1px solid; cursor: default;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.3px;
+}
+
+/* ── BOARD ── */
+main {
+  position: relative; z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  min-height: calc(100vh - 180px);
+}
+
+.col-wrap {
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+}
+
+.col-wrap:last-child { border-right: none; }
+
+.col-head {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 5;
+  backdrop-filter: blur(16px);
+  background: rgba(7,9,15,0.85);
+}
+
+.col-head-left {
+  display: flex; align-items: center; gap: 10px;
+}
+
+.col-indicator {
+  width: 3px; height: 16px; border-radius: 2px; flex-shrink: 0;
+}
+
+.col-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.5px; text-transform: uppercase;
+}
+
+.col-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  background: var(--s3);
+  padding: 2px 8px; border-radius: 10px;
+}
+
+.todo-col .col-indicator { background: var(--todo-head); }
+.prog-col .col-indicator { background: var(--prog-head); }
+.done-col .col-indicator { background: var(--done-head); }
+
+.todo-col .col-name { color: var(--todo-head); }
+.prog-col .col-name { color: var(--prog-head); }
+.done-col .col-name { color: var(--done-head); }
+
+/* ── DROP ZONE ── */
+.drop-zone {
+  padding: 16px 14px;
+  display: flex; flex-direction: column; gap: 10px;
+  flex: 1; min-height: 200px;
+  transition: background 0.15s;
+}
+
+.drop-zone.over {
+  background: rgba(59,130,246,0.04);
+  outline: 1px dashed rgba(59,130,246,0.25);
+  outline-offset: -8px;
+  border-radius: 4px;
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: grab;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s, opacity 0.15s;
+  position: relative;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 2px; border-radius: 0 2px 2px 0;
+  background: var(--phase-c, var(--muted));
+}
+
+.card:hover {
+  border-color: var(--border2);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  transform: translateY(-1px);
+}
+
+.card.dragging { opacity: 0.35; cursor: grabbing; }
+
+.card.is-milestone {
+  background: var(--amber-bg);
+  border-color: var(--amber-border);
+}
+
+.card.is-milestone::after { background: var(--amber); }
+
+/* card header */
+.card-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 8px;
+  margin-bottom: 8px;
+}
+
+.card-badges { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+
+.phase-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 3px;
+  border: 1px solid; white-space: nowrap;
+}
+
+.milestone-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 3px;
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  color: var(--amber);
+}
+
+/* menu */
+.menu-wrap { position: relative; flex-shrink: 0; }
+
+.menu-btn {
+  background: none; border: none;
+  color: var(--muted); cursor: pointer;
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 4px; font-size: 14px;
+  transition: color 0.1s, background 0.1s;
+  letter-spacing: 1px;
+}
+
+.menu-btn:hover { color: var(--text); background: var(--s3); }
+
+.dropdown {
+  display: none; position: absolute;
+  right: 0; top: calc(100% + 4px);
+  background: var(--s2); border: 1px solid var(--border2);
+  border-radius: 8px; overflow: hidden; z-index: 200;
+  min-width: 160px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+}
+
+.dropdown.open { display: block; }
+
+.dropdown button {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; background: none; border: none;
+  color: var(--text); font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; padding: 9px 14px;
+  text-align: left; cursor: pointer;
+  transition: background 0.1s; letter-spacing: 0.2px;
+}
+
+.dropdown button:hover { background: var(--s3); }
+.dropdown button.active { color: #3b82f6; }
+.dropdown .sep {
+  height: 1px; background: var(--border); margin: 2px 0;
+}
+
+.card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: #fff; line-height: 1.35;
+  margin-bottom: 5px;
+}
+
+.card.is-milestone .card-title { color: var(--amber); }
+
+.card-desc {
+  font-size: 11.5px; color: var(--muted);
+  line-height: 1.6; letter-spacing: 0.1px;
+}
+
+/* ── EMPTY ── */
+.empty-state {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; padding: 40px 20px;
+  color: var(--dim); font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+
+/* ── PHASE COLORS ── */
+.p1  { --phase-c: var(--p1);  }
+.p1t { color: var(--p1); border-color: rgba(249,115,22,0.3); background: var(--p1b); }
+.p2  { --phase-c: var(--p2);  }
+.p2t { color: var(--p2); border-color: rgba(168,85,247,0.3); background: var(--p2b); }
+.p3  { --phase-c: var(--p3);  }
+.p3t { color: var(--p3); border-color: rgba(6,182,212,0.3);  background: var(--p3b); }
+.p4  { --phase-c: var(--p4);  }
+.p4t { color: var(--p4); border-color: rgba(59,130,246,0.3); background: var(--p4b); }
+.p5  { --phase-c: var(--p5);  }
+.p5t { color: var(--p5); border-color: rgba(244,63,94,0.3);  background: var(--p5b); }
+.p6  { --phase-c: var(--p6);  }
+.p6t { color: var(--p6); border-color: rgba(245,158,11,0.3); background: var(--p6b); }
+.p7  { --phase-c: var(--p7);  }
+.p7t { color: var(--p7); border-color: rgba(34,197,94,0.3);  background: var(--p7b); }
+.p8  { --phase-c: var(--p8);  }
+.p8t { color: var(--p8); border-color: rgba(232,121,249,0.3); background: var(--p8b); }
+
+@media (max-width: 860px) {
+  main { grid-template-columns: 1fr; }
+  .col-wrap { border-right: none; border-bottom: 1px solid var(--border); }
+  header { padding: 24px 20px 20px; }
+  .legend { padding: 12px 20px; }
+  .header-meta { align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="wordmark">
+      <div class="wordmark-dot"></div>
+      WorldLider
+    </div>
+    <div class="tagline">Base Blockchain · ERC-20 WLT · Voting Platform</div>
+  </div>
+  <div class="header-meta">
+    <div class="progress-block">
+      <div class="progress-row">
+        <span class="progress-label">Progreso general</span>
+        <span class="progress-pct" id="pct">0%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" id="bar" style="width:0%"></div>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-dot" style="background:var(--todo-head)"></div>
+          <span id="c-todo">0</span> pendientes
+        </div>
+        <div class="stat">
+          <div class="stat-dot" style="background:var(--prog-head)"></div>
+          <span id="c-prog">0</span> en curso
+        </div>
+        <div class="stat">
+          <div class="stat-dot" style="background:var(--done-head)"></div>
+          <span id="c-done">0</span> completadas
+        </div>
+      </div>
+    </div>
+    <div class="updated" id="updated">—</div>
+  </div>
+</header>
+
+<div class="legend">
+  <span class="legend-label">Fases →</span>
+  <span class="pill p1t">F1 Setup</span>
+  <span class="pill p2t">F2 Contratos</span>
+  <span class="pill p3t">F3 Backend</span>
+  <span class="pill p4t">F4 Frontend</span>
+  <span class="pill p5t">F5 Integración</span>
+  <span class="pill p6t">F6 Traspaso</span>
+  <span class="pill p7t">F7 Producción</span>
+  <span class="pill" style="color:var(--amber);border-color:var(--amber-border);background:var(--amber-bg)">⚑ Milestone cliente</span>
+</div>
+
+<main>
+  <div class="col-wrap todo-col">
+    <div class="col-head">
+      <div class="col-head-left">
+        <div class="col-indicator"></div>
+        <span class="col-name">Por hacer</span>
+      </div>
+      <span class="col-count" id="h-todo">0</span>
+    </div>
+    <div class="drop-zone" id="dz-todo" data-col="todo"></div>
+  </div>
+
+  <div class="col-wrap prog-col">
+    <div class="col-head">
+      <div class="col-head-left">
+        <div class="col-indicator"></div>
+        <span class="col-name">En progreso</span>
+      </div>
+      <span class="col-count" id="h-prog">0</span>
+    </div>
+    <div class="drop-zone" id="dz-prog" data-col="progress"></div>
+  </div>
+
+  <div class="col-wrap done-col">
+    <div class="col-head">
+      <div class="col-head-left">
+        <div class="col-indicator"></div>
+        <span class="col-name">Completado</span>
+      </div>
+      <span class="col-count" id="h-done">0</span>
+    </div>
+    <div class="drop-zone" id="dz-done" data-col="done"></div>
+  </div>
+</main>
+
+<script>
+const PHASES = {
+  1: { label: 'F1 · Setup',        cls: 'p1', tcls: 'p1t' },
+  2: { label: 'F2 · Contratos',    cls: 'p2', tcls: 'p2t' },
+  3: { label: 'F3 · Backend',      cls: 'p3', tcls: 'p3t' },
+  4: { label: 'F4 · Frontend',     cls: 'p4', tcls: 'p4t' },
+  5: { label: 'F5 · Integración',  cls: 'p5', tcls: 'p5t' },
+  6: { label: 'F6 · Traspaso',     cls: 'p6', tcls: 'p6t' },
+  7: { label: 'F7 · Producción',   cls: 'p7', tcls: 'p7t' },
+};
+
+const DEFAULT = [
+  // ── FASE 1: SETUP ──
+  { id:'f1-1', p:1, s:'done',     title:'Exportar código de Horizons',        desc:'Código fuente descargado y disponible en entorno local.' },
+  { id:'f1-2', p:1, s:'done',     title:'Análisis del código exportado',      desc:'Stack confirmado: React 18 + Vite, PocketBase, shadcn/ui, Tailwind, Framer Motion. Wallet MetaMask ya implementada.' },
+  { id:'f1-3', p:1, s:'progress', title:'Configurar repositorio local',       desc:'Estructura de monorepo en máquina del desarrollador. Repo temporal de roadmap en Vercel.' },
+  { id:'f1-4', p:1, s:'todo',     title:'Entorno de desarrollo blockchain',   desc:'Instalar Hardhat. Configurar RPC de Base Sepolia. Variables de entorno.' },
+
+  // ── FASE 2: CONTRATOS ──
+  { id:'f2-1', p:2, s:'todo', title:'Token WLT (ERC-20)',               desc:'OpenZeppelin ERC-20. Supply fijo: 144,000,000,000 WLT. Mint inicial completo a wallet del cliente.' },
+  { id:'f2-2', p:2, s:'todo', title:'Contrato de votación',             desc:'Balance mínimo 1,000 WLT para votar. Un voto por wallet por elección. Eventos Vote() para indexar.' },
+  { id:'f2-3', p:2, s:'todo', title:'Tests unitarios',                  desc:'Cobertura completa: mint, transferencia, votación válida, balance insuficiente, voto duplicado.' },
+  { id:'f2-4', p:2, s:'todo', title:'Deploy en Base Sepolia',           desc:'Deploy de WLTToken.sol y Voting.sol en testnet. Verificar en BaseScan. Documentar contract addresses.' },
+
+  // ── FASE 3: BACKEND ──
+  { id:'f3-1', p:3, s:'todo', title:'Setup servidor Node.js',           desc:'Express/Fastify en /backend. Estructura de carpetas: indexer/, api/, db/.' },
+  { id:'f3-2', p:3, s:'todo', title:'Base de datos y modelos',          desc:'SQLite para MVP. Modelos: candidates, votes. Migraciones.' },
+  { id:'f3-3', p:3, s:'todo', title:'Indexador de eventos blockchain',  desc:'Listener de eventos Vote() del contrato. Re-sincronización al iniciar. Guardado en DB.' },
+  { id:'f3-4', p:3, s:'todo', title:'API REST',                        desc:'GET /candidates · GET /results · GET /wallet/:address/status. CORS configurado para el frontend.' },
+
+  // ── FASE 4: FRONTEND ──
+  { id:'f4-1', p:4, s:'progress', title:'Migrar frontend de Horizons',       desc:'Limpiar plugins de Horizons de vite.config.js. Adaptar PocketBase URL para local. Setup GitHub.' },
+  { id:'f4-2', p:4, s:'todo',     title:'Integrar wagmi + viem',            desc:'Reemplazar WalletContext por wagmi. Soporte para Base Mainnet y Base Sepolia. Detección de red.' },
+  { id:'f4-3', p:4, s:'todo',     title:'Pantalla de votación',             desc:'Lista de candidatos con foto y descripción. Verificación de balance mínimo. Transacción de voto.' },
+  { id:'f4-4', p:4, s:'todo',     title:'Dashboard de resultados',          desc:'Popular Vote + WLT Support Score por candidato. Consumo de API REST. Actualización periódica.' },
+  { id:'f4-5', p:4, s:'todo',     title:'Responsive y polish',              desc:'Testing mobile-first. Ajustes de animaciones Framer Motion. Revisión visual completa.' },
+
+  // ── FASE 5: INTEGRACIÓN ──
+  { id:'f5-1', p:5, s:'todo', title:'Integración end-to-end en testnet',  desc:'Conectar frontend → backend → contratos en Base Sepolia. Flujo completo de votación.' },
+  { id:'f5-2', p:5, s:'todo', title:'Testing completo',                   desc:'Casos borde: wallet sin fondos, voto doble, red incorrecta, candidato inválido.' },
+  { id:'f5-3', p:5, s:'todo', title:'Fix de bugs',                       desc:'Resolución de issues del testing. Revisión de seguridad básica de contratos y API.' },
+
+  // ── FASE 6: TRASPASO AL CLIENTE ──
+  { id:'f6-m', p:6, s:'todo', milestone:true, title:'⚑ Demo al cliente en testnet',          desc:'Mostrar flujo completo funcionando en Base Sepolia antes de pasar a producción.' },
+  { id:'f6-1', p:6, s:'todo', milestone:true, title:'⚑ Cliente: wallet de producción',       desc:'Confirmar dirección pública de la wallet que recibirá el mint inicial de WLT. (No compartir clave privada.)' },
+  { id:'f6-2', p:6, s:'todo', milestone:true, title:'⚑ Cliente: crear GitHub + Railway + Vercel', desc:'El cliente crea sus cuentas. Se agrega al desarrollador como colaborador. Railway necesita tarjeta.' },
+  { id:'f6-3', p:6, s:'todo', title:'Migrar repo a cuenta del cliente',   desc:'Push del repositorio local al GitHub del cliente. Configurar acceso de colaborador.' },
+  { id:'f6-4', p:6, s:'todo', title:'Configurar infraestructura en su cuenta', desc:'Variables de entorno de producción en Railway y Vercel. Apuntar a contratos de mainnet.' },
+
+  // ── FASE 7: PRODUCCIÓN ──
+  { id:'f7-1', p:7, s:'todo', milestone:true, title:'⚑ Cliente carga ETH en Base Mainnet',   desc:'El cliente necesita ETH en su wallet para pagar el gas del deploy (~$5–20 estimado).' },
+  { id:'f7-2', p:7, s:'todo', title:'Deploy contratos en Base Mainnet',   desc:'Deploy definitivo de WLTToken y Voting. Mint de 144B WLT a wallet del cliente.' },
+  { id:'f7-3', p:7, s:'todo', title:'Deploy backend en Railway',          desc:'Producción en Railway del cliente. DB PostgreSQL. Indexador apuntando a mainnet.' },
+  { id:'f7-4', p:7, s:'todo', title:'Deploy frontend en Vercel',          desc:'Build de producción. Variables apuntando a mainnet y Railway.' },
+  { id:'f7-5', p:7, s:'todo', milestone:true, title:'⚑ Migrar DNS worldlider.com a Vercel',  desc:'Cambiar nameservers o registros A/CNAME en panel de Hostinger. Certificado SSL automático.' },
+  { id:'f7-6', p:7, s:'todo', title:'Testing final en producción',        desc:'Smoke test completo en mainnet. Verificar dashboard, votación y wallet. Cierre del proyecto.' },
+];
+
+let tasks = [];
+let dragId = null;
+let openId = null;
+
+function load() {
+  try {
+    const s = localStorage.getItem('wlt-rm-v3');
+    tasks = s ? JSON.parse(s) : JSON.parse(JSON.stringify(DEFAULT));
+  } catch { tasks = JSON.parse(JSON.stringify(DEFAULT)); }
+}
+
+function save() {
+  localStorage.setItem('wlt-rm-v3', JSON.stringify(tasks));
+  stamp();
+}
+
+function stamp() {
+  const d = new Date();
+  const fmt = d.toLocaleDateString('es-AR',{day:'2-digit',month:'short',year:'numeric'})
+    + ' · ' + d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('updated').textContent = 'Actualizado ' + fmt;
+}
+
+function updateStats() {
+  const todo = tasks.filter(t=>t.s==='todo').length;
+  const prog = tasks.filter(t=>t.s==='progress').length;
+  const done = tasks.filter(t=>t.s==='done').length;
+  const total = tasks.length;
+  const pct = total ? Math.round(done/total*100) : 0;
+
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('bar').style.width = pct + '%';
+  document.getElementById('c-todo').textContent = todo;
+  document.getElementById('c-prog').textContent = prog;
+  document.getElementById('c-done').textContent = done;
+  document.getElementById('h-todo').textContent = todo;
+  document.getElementById('h-prog').textContent = prog;
+  document.getElementById('h-done').textContent = done;
+}
+
+function closeMenus() {
+  document.querySelectorAll('.dropdown.open').forEach(d=>d.classList.remove('open'));
+  openId = null;
+}
+
+function makeCard(t) {
+  const ph = PHASES[t.p];
+  const el = document.createElement('div');
+  el.className = 'card ' + ph.cls + (t.milestone ? ' is-milestone' : '');
+  el.dataset.id = t.id;
+  el.draggable = true;
+
+  el.innerHTML = `
+    <div class="card-header">
+      <div class="card-badges">
+        <span class="phase-tag ${ph.tcls}">${ph.label}</span>
+        ${t.milestone ? '<span class="milestone-tag">⚑ Cliente</span>' : ''}
+      </div>
+      <div class="menu-wrap">
+        <button class="menu-btn" data-id="${t.id}">···</button>
+        <div class="dropdown" id="dd-${t.id}">
+          <button data-id="${t.id}" data-to="todo"     class="${t.s==='todo'?'active':''}">🔲 Por hacer</button>
+          <button data-id="${t.id}" data-to="progress" class="${t.s==='progress'?'active':''}">🔄 En progreso</button>
+          <button data-id="${t.id}" data-to="done"     class="${t.s==='done'?'active':''}">✅ Completado</button>
+        </div>
+      </div>
+    </div>
+    <div class="card-title">${t.title}</div>
+    <div class="card-desc">${t.desc}</div>
+  `;
+
+  el.addEventListener('dragstart', e => {
+    dragId = t.id;
+    setTimeout(() => el.classList.add('dragging'), 0);
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  el.addEventListener('dragend', () => { el.classList.remove('dragging'); dragId = null; });
+
+  el.querySelector('.menu-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    const dd = document.getElementById('dd-' + t.id);
+    if (openId && openId !== t.id) closeMenus();
+    const wasOpen = dd.classList.contains('open');
+    dd.classList.toggle('open', !wasOpen);
+    openId = wasOpen ? null : t.id;
+  });
+
+  el.querySelectorAll('.dropdown button').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const task = tasks.find(x => x.id === btn.dataset.id);
+      if (task) { task.s = btn.dataset.to; save(); render(); }
+    });
+  });
+
+  return el;
+}
+
+function render() {
+  ['todo','progress','done'].forEach(col => {
+    const dz = document.getElementById('dz-' + (col==='progress'?'prog':col==='done'?'done':'todo'));
+    dz.innerHTML = '';
+    const list = tasks.filter(t => t.s === col);
+    if (!list.length) {
+      dz.innerHTML = '<div class="empty-state">sin tareas</div>';
+    } else {
+      list.forEach(t => dz.appendChild(makeCard(t)));
+    }
+  });
+  updateStats();
+}
+
+document.querySelectorAll('.drop-zone').forEach(dz => {
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('over');
+    if (!dragId) return;
+    const t = tasks.find(x => x.id === dragId);
+    if (t) { t.s = dz.dataset.col; save(); render(); }
+  });
+});
+
+document.addEventListener('click', closeMenus);
+
+load();
+render();
+stamp();
+</script>
+</body>
+</html>
