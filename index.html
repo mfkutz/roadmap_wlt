@@ -423,6 +423,23 @@ header {
 .tk-step-title { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 2px; }
 .tk-step-desc  { font-size: 11.5px; color: var(--muted); line-height: 1.6; }
 
+/* sale details to define */
+.tk-details { display: flex; flex-direction: column; gap: 9px; }
+.tk-detail {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 14px;
+}
+.tk-detail-n {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500;
+  background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border);
+}
+.tk-detail-t { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+.tk-detail-d { font-size: 11.5px; color: var(--muted); line-height: 1.6; }
+.tk-detail-d em { color: var(--text); font-style: normal; font-weight: 500; }
+
 /* honest note */
 .tk-note {
   background: var(--amber-bg); border: 1px solid var(--amber-border);
@@ -589,6 +606,38 @@ header {
           </div>
         </li>
       </ol>
+    </div>
+
+    <!-- DETALLES DE LA VENTA -->
+    <div class="tk-block">
+      <div class="tk-block-title">Detalles de la venta — a definir con Pablo</div>
+      <div class="tk-details">
+
+        <div class="tk-detail">
+          <div class="tk-detail-n">1</div>
+          <div>
+            <div class="tk-detail-t">La preventa NO usa toda la plata para el pool</div>
+            <div class="tk-detail-d">Lo recaudado se <em>divide</em>: una parte va al proyecto (desarrollo, marketing, gastos) y otra a llenar el pool de liquidez. Cuánto a cada lado lo deciden vos y Pablo. No es "todo lo recaudado → pool", es una porción.</div>
+          </div>
+        </div>
+
+        <div class="tk-detail">
+          <div class="tk-detail-n">2</div>
+          <div>
+            <div class="tk-detail-t">El precio de preventa suele ser más barato que el de listing</div>
+            <div class="tk-detail-d">Ejemplo: preventa a <em>$0,0001</em> y listing (pool) a <em>$0,0002</em>. Premia a quien entró temprano — cuando abre el mercado, su token ya vale más. Es el incentivo clásico para que la gente entre en la preventa. Ese "escalón" lo definen vos y Pablo.</div>
+          </div>
+        </div>
+
+        <div class="tk-detail">
+          <div class="tk-detail-n">3</div>
+          <div>
+            <div class="tk-detail-t">La duración de la preventa es decisión de negocio</div>
+            <div class="tk-detail-d">No hay regla fija. Lo típico: <em>2 a 6 semanas</em>, o "hasta llegar a un monto objetivo". A veces se hace en rondas (una privada para inversores grandes a mejor precio, después una pública). Lo definen Pablo + el abogado, porque la forma de la venta es justo lo que mira el regulador.</div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- NOTA HONESTA -->
