@@ -270,6 +270,33 @@ header {
 .ms-progress { color: var(--prog-c); border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.08); }
 .ms-done     { color: var(--done-c); border-color: rgba(34,197,94,0.3);  background: rgba(34,197,94,0.08); }
 
+/* ── DECISION (design / security highlight) ── */
+.decision {
+  padding: 13px 15px;
+  background: rgba(6,182,212,0.06);
+  border: 1px solid rgba(6,182,212,0.28);
+  border-radius: 8px;
+  display: flex; align-items: flex-start; gap: 11px;
+}
+
+.dec-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; line-height: 1; color: #06b6d4; }
+
+.dec-body { flex: 1; }
+
+.dec-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #06b6d4; margin-bottom: 3px;
+}
+
+.dec-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: #22d3ee; margin-bottom: 4px; line-height: 1.3;
+}
+
+.dec-desc { font-size: 11.5px; color: rgba(165,243,252,0.6); line-height: 1.6; }
+
 /* ── PHASE COLORS ── */
 .ph1 { border-color: var(--p1); color: var(--p1); }
 .ph1n { color: var(--p1); }
@@ -341,12 +368,22 @@ const PHASES = [
   {
     num: 'F2', cls: 'ph2', nameCls: 'ph2n',
     name: 'Smart Contracts',
-    sub:  'Token ERC-20 y contrato de votación — wallet del desarrollador en testnet',
+    sub:  'Token ERC-20, votación y seguridad — la parte más crítica del proyecto',
     items: [
-      { type:'task', s:'todo', title:'Token WLT (ERC-20)',       desc:'OpenZeppelin ERC-20. Supply fijo: 144,000,000,000 WLT. En testnet se mintea a la wallet del desarrollador.' },
-      { type:'task', s:'todo', title:'Contrato de votación',     desc:'Balance mínimo 1,000 WLT para votar. Un voto por wallet por elección. Eventos Vote() para indexar en el backend.' },
-      { type:'task', s:'todo', title:'Tests unitarios',          desc:'Cobertura completa: mint, transferencia, votación válida, balance insuficiente, voto duplicado.' },
-      { type:'task', s:'todo', title:'Deploy en Base Sepolia',   desc:'Deploy de WLTToken.sol y Voting.sol en testnet con wallet del desarrollador. Documentar contract addresses.' },
+      { type:'decision', s:'todo', title:'Votación por snapshot (balance congelado)',
+        desc:'Para que los resultados no se puedan manipular, el sistema "fotografía" el balance de WLT de cada wallet al inicio de cada elección. El poder de voto se calcula con esa foto, no con el balance del momento. Así se evita el ataque más obvio: votar, transferir los tokens a otra wallet y volver a votar con los mismos tokens. Se implementa con un componente ya auditado de OpenZeppelin (ERC20Votes), no con código hecho a mano — esto reduce el riesgo justo en el punto más sensible. Nota: una vez en mainnet el contrato es INMUTABLE, no se puede parchear, por eso toda la seguridad se resuelve antes del deploy.' },
+      { type:'task', s:'todo', title:'Modelo de amenazas (antes de codear)',
+        desc:'Documentar en papel los vectores de ataque antes de escribir una línea de contrato: revote por transferencia, división de tokens en muchas wallets (sybil), quién puede registrar candidatos, y qué pasa si Pablo pierde la wallet dueña del supply. Son decisiones de seguridad previas al código.' },
+      { type:'task', s:'todo', title:'Token WLT (ERC-20 + Votes)',
+        desc:'OpenZeppelin ERC-20 con extensión ERC20Votes (snapshot de balances, código auditado). Supply fijo: 144,000,000,000 WLT. En testnet se mintea a la wallet del desarrollador.' },
+      { type:'task', s:'todo', title:'Contrato de votación',
+        desc:'Lee el balance del snapshot, no el actual. Mínimo 1,000 WLT para votar. Un voto por wallet por elección. Eventos Vote() para indexar en el backend. Es el código nuevo / no auditado — máxima atención acá.' },
+      { type:'task', s:'todo', title:'Tests unitarios exhaustivos',
+        desc:'Cada regla del contrato cubierta por un test: mint, transferencia, snapshot, votación válida, balance insuficiente, intento de revote, voto duplicado, registro de candidatos.' },
+      { type:'task', s:'todo', title:'Análisis estático con Slither',
+        desc:'Herramienta automática estándar que detecta vulnerabilidades comunes en Solidity (reentrancy, overflow, malas prácticas). Gratuita. Se corre sobre el contrato de votación custom.' },
+      { type:'task', s:'todo', title:'Deploy en Base Sepolia',
+        desc:'Deploy de WLTToken.sol y Voting.sol en testnet con wallet del desarrollador. Verificar en BaseScan. Documentar contract addresses.' },
     ]
   },
   {
@@ -358,6 +395,7 @@ const PHASES = [
       { type:'task', s:'todo', title:'Base de datos y modelos',         desc:'SQLite para MVP (PostgreSQL en producción). Modelos: candidates, votes.' },
       { type:'task', s:'todo', title:'Indexador de eventos blockchain', desc:'Listener de eventos Vote() del contrato. Re-sincronización al iniciar. Guardado en DB.' },
       { type:'task', s:'todo', title:'API REST',                       desc:'GET /candidates · GET /results · GET /wallet/:address/status. CORS configurado.' },
+      { type:'task', s:'todo', title:'Seguridad del backend',          desc:'Validación de inputs en todos los endpoints, rate limiting y manejo seguro de variables de entorno. El backend nunca toca claves privadas — solo lee la blockchain y sirve datos de lectura.' },
     ]
   },
   {
@@ -374,12 +412,15 @@ const PHASES = [
   },
   {
     num: 'F5', cls: 'ph5', nameCls: 'ph5n',
-    name: 'Integración y Testing',
-    sub:  'Flujo completo en Base Sepolia — sin contacto con Pablo',
+    name: 'Integración y Seguridad',
+    sub:  'Flujo completo y endurecimiento en Base Sepolia — sin contacto con Pablo',
     items: [
-      { type:'task', s:'todo', title:'Integración end-to-end en testnet', desc:'Conectar frontend → backend → contratos en Base Sepolia. Flujo completo de votación.' },
-      { type:'task', s:'todo', title:'Testing completo',                  desc:'Casos borde: wallet sin fondos, voto doble, red incorrecta, candidato inválido.' },
-      { type:'task', s:'todo', title:'Fix de bugs',                      desc:'Resolución de issues del testing. Revisión de seguridad básica de contratos y API.' },
+      { type:'task', s:'todo', title:'Integración end-to-end en testnet', desc:'Conectar frontend → backend → contratos en Base Sepolia. Flujo completo de votación funcionando punta a punta.' },
+      { type:'task', s:'todo', title:'Testing completo',                  desc:'Casos borde: wallet sin fondos, voto doble, red incorrecta, candidato inválido, balance justo en el límite.' },
+      { type:'task', s:'todo', title:'Testnet hostil (intentar romper)',  desc:'Antes de producción: atacar la votación a propósito en Sepolia — revote por transferencia, división de tokens, votos inválidos, red equivocada. Es gratis y revela el 90% de los problemas reales antes de que cuesten dinero.' },
+      { type:'task', s:'todo', title:'Fix de bugs',                      desc:'Resolución de todos los issues encontrados en testing y testnet hostil.' },
+      { type:'decision', s:'todo', title:'Revisión de seguridad final (control pre-mainnet)',
+        desc:'Último punto de control antes de producción: re-correr Slither, revisión manual del contrato con mentalidad de atacante, y verificar que el supply total y la wallet dueña son exactamente los correctos. Una vez desplegado en mainnet el contrato NO se puede modificar — este es el momento de encontrar cualquier problema. No se pasa a producción hasta cerrar este punto.' },
     ]
   },
   {
@@ -389,8 +430,8 @@ const PHASES = [
     items: [
       { type:'milestone', s:'todo', title:'Demo a Pablo en testnet',
         desc:'Mostrar el flujo completo funcionando en Base Sepolia. Punto de validación y aprobación antes de ir a producción.' },
-      { type:'milestone', s:'todo', title:'Conseguir un email de Pablo',
-        desc:'Puede ser uno nuevo creado para el proyecto (ej: pablo@worldlider.com) o uno personal suyo. Solo se necesita acceso al email por ~15 minutos para confirmar los registros.' },
+      { type:'milestone', s:'todo', title:'Crear Gmail técnico con Pablo',
+        desc:'Se recomienda crear un Gmail genérico independiente de WorldLider (ej: pablodev@gmail.com) para usar como cuenta técnica. GitHub, Railway y Vercel quedan bajo ese email — sirve para cualquier proyecto futuro, no solo este. Queda como su entorno de desarrollo personal reutilizable.' },
       { type:'task',      s:'todo', title:'Abrir cuenta GitHub con email de Pablo',
         desc:'El desarrollador crea la cuenta y el repositorio privado en nombre de Pablo. Pablo es el owner, el desarrollador queda como colaborador.' },
       { type:'task',      s:'todo', title:'Migrar repo al GitHub de Pablo',
@@ -453,7 +494,18 @@ function render() {
     `;
 
     phase.items.forEach(item => {
-      if (item.type === 'milestone') {
+      if (item.type === 'decision') {
+        html += `
+          <div class="decision">
+            <div class="dec-icon">◆</div>
+            <div class="dec-body">
+              <div class="dec-label">Decisión de diseño · Seguridad</div>
+              <div class="dec-title">${item.title}</div>
+              <div class="dec-desc">${item.desc}</div>
+            </div>
+          </div>
+        `;
+      } else if (item.type === 'milestone') {
         const bc = item.s === 'done' ? 'ms-done' : item.s === 'progress' ? 'ms-progress' : 'ms-todo';
         const bl = item.s === 'done' ? 'listo' : item.s === 'progress' ? 'en curso' : 'pendiente';
         html += `
