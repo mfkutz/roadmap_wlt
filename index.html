@@ -90,6 +90,7 @@ header {
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 .nav-link:hover { color: var(--text); border-color: var(--border2); background: var(--surface); }
+.nav-link.active { color: #fff; border-color: var(--border2); background: var(--s3); }
 
 .header-right {
   display: flex; flex-direction: column;
@@ -988,6 +989,30 @@ function render() {
 }
 
 render();
+
+// ── Pestañas (mostrar una sección a la vez) ──
+(function () {
+  const tabHashes = ['#timeline', '#tokenomics', '#glosario'];
+  const tabs = document.querySelectorAll('.nav-link');
+  function showTab(hash, scroll) {
+    tabHashes.forEach(h => {
+      const el = document.querySelector(h);
+      if (el) el.style.display = (h === hash) ? '' : 'none';
+    });
+    tabs.forEach(t => t.classList.toggle('active', t.getAttribute('href') === hash));
+    if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  tabs.forEach(t => {
+    t.addEventListener('click', e => {
+      e.preventDefault();
+      const hash = t.getAttribute('href');
+      showTab(hash, true);
+      history.replaceState(null, '', hash);
+    });
+  });
+  const initial = tabHashes.includes(location.hash) ? location.hash : '#timeline';
+  showTab(initial, false);
+})();
 </script>
 </body>
 </html>
