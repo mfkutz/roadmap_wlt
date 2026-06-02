@@ -415,6 +415,7 @@ const PHASES = [
       { type:'task', s:'todo', title:'Pantalla de votación',            desc:'Lista de candidatos con foto y descripción. Verificación de balance mínimo. Transacción de voto. Mensaje claro si la wallet no tiene ETH para el gas.' },
       { type:'task', s:'todo', title:'Dashboard de resultados',         desc:'Popular Vote + WLT Support Score por candidato. Consumo de API REST. Actualización periódica.' },
       { type:'task', s:'todo', title:'Panel de admin (acceso por wallet)', desc:'Ruta no enlazada protegida por firma de wallet: se conecta MetaMask y se firma un mensaje (sin gas) que se valida contra una lista blanca de direcciones. Sin usuario ni contraseña. Candidatos: Pablo los gestiona (cargar/editar nombre, bio, foto) — es contenido. Elecciones: Pablo decide el qué (candidatos, fecha, duración) y el socio técnico ejecuta el setup on-chain (snapshot, apertura/cierre), que el contrato gatea por onlyOwner. Reutiliza los componentes shadcn ya instalados.' },
+      { type:'task', s:'todo', title:'Páginas legales y disclaimers',    desc:'Adaptar las páginas existentes (Términos, Privacidad, Disclaimer del Token) al modelo on-chain. Hacer prominente en la UI que el voto es SIMBÓLICO (sin valor legal) y que el WLT NO es una inversión. Los textos definitivos dependen de la revisión legal profesional (ver F7).' },
       { type:'task', s:'todo', title:'Responsive y polish',             desc:'Testing mobile-first. Ajustes de animaciones Framer Motion. Revisión visual completa.' },
     ]
   },
@@ -455,8 +456,12 @@ const PHASES = [
   {
     num: 'F7', cls: 'ph7', nameCls: 'ph7n',
     name: 'Producción',
-    sub:  'Segunda coordinación con Pablo — multisig, tokenomics, ETH y DNS',
+    sub:  'Segunda coordinación con Pablo — legal, multisig, tokenomics, ETH y DNS',
     items: [
+      { type:'decision', s:'todo', title:'Marco legal — voto simbólico y naturaleza del token',
+        desc:'Dos puntos legales que deben quedar claros antes del lanzamiento público. (1) VOTO SIMBÓLICO: la plataforma no tiene autoridad legal ni gubernamental, no elige funcionarios reales ni tiene validez oficial — debe estar explícito para no confundirse con un proceso electoral real. (2) NATURALEZA DEL TOKEN: vender un token al público puede caer bajo regulación financiera. En muchos países, si la gente compra esperando ganancias, el token puede considerarse un "security" (valor regulado) y quedar sujeto a leyes estrictas. El WLT debe enmarcarse como token de utilidad/acceso, NO como inversión, y dejarlo por escrito en los disclaimers. La venta pública (50% del supply) es la actividad de mayor riesgo legal del proyecto. IMPORTANTE: esto no lo puede resolver el desarrollador ni una IA — requiere un abogado especializado.' },
+      { type:'milestone', s:'todo', title:'Revisión legal profesional (con Pablo)',
+        desc:'Responsabilidad de Pablo (lado negocio), pero afecta a todo el proyecto. Consultar a un abogado especializado en cripto/valores sobre: si el WLT puede considerarse un "security", requisitos de la venta pública (posible KYC/AML), jurisdicción aplicable, y validez de los disclaimers de voto simbólico. CONVIENE INICIARLO EN PARALELO DESDE TEMPRANO — puede tomar semanas y condiciona cómo se hace la venta pública. Es un gate antes del lanzamiento público con valor real; el desarrollo en testnet no tiene este riesgo.' },
       { type:'decision', s:'todo', title:'Tesoro en multisig (Safe 2-de-3)',
         desc:'Los 144,000,000,000 WLT se mintean a un MULTISIG (Gnosis Safe), no a una sola wallet. Un multisig requiere varias firmas para mover fondos — esquema 2-de-3: hacen falta 2 de 3 llaves para cualquier movimiento. Por qué importa: si una sola wallet custodia el supply y se pierde la clave, los 144B tokens se pierden para siempre; si la roban, se llevan todo y no hay vuelta atrás. Con multisig 2-de-3: si se pierde una llave se sigue operando con las otras 2, si roban una no pueden mover nada, y ningún socio solo controla el tesoro. Es el estándar de la industria (lo usan las DAOs y empresas cripto), es gratis y auditado. El Safe también será el dueño del contrato de votación, así que crear elecciones requerirá 2 firmas.' },
       { type:'decision', s:'todo', title:'Vesting de las porciones del equipo',
