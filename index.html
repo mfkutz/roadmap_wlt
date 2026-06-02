@@ -774,8 +774,6 @@ const PHASES = [
         desc:'El desarrollador crea la cuenta en nombre de Pablo. Requiere tarjeta de crédito de Pablo (~$5/mes, plan Hobby). Pablo es el owner.' },
       { type:'task',      s:'todo', title:'Abrir cuenta Vercel con email de Pablo',
         desc:'El desarrollador crea la cuenta en nombre de Pablo y la conecta a su GitHub. Pablo es el owner.' },
-      { type:'task',      s:'todo', title:'Configurar variables de entorno',
-        desc:'Variables de producción en Railway y Vercel apuntando a los contratos de mainnet.' },
     ]
   },
   {
@@ -803,8 +801,10 @@ const PHASES = [
         desc:'Necesario para pagar el gas del deploy en mainnet. Estimado: $5–20 USD en ETH sobre Base Mainnet. El desarrollador indica el monto exacto antes de este paso.' },
       { type:'task',      s:'todo', title:'Deploy contratos en Base Mainnet',
         desc:'Deploy definitivo de WLTToken y Voting. Mint de 144.000.000.000 WLT al multisig Safe (no a una wallet individual). El owner de los contratos también es el Safe.' },
+      { type:'task',      s:'todo', title:'Configurar variables de entorno (testnet primero)',
+        desc:'Apuntar la infraestructura de Pablo (Railway/Vercel) primero a los contratos de testnet (Base Sepolia) para validar que todo funciona en sus cuentas. Una vez deployado en mainnet, se cambian las variables a los contratos de mainnet. Es lo que realmente se hace: probar en testnet sobre la infra de producción antes de apuntar a la cadena real.' },
       { type:'task',      s:'todo', title:'Deploy backend en Railway',
-        desc:'Producción en Railway de Pablo. Base de datos PostgreSQL. Indexador apuntando a mainnet.' },
+        desc:'Producción en Railway de Pablo. Base de datos PostgreSQL. Indexador apuntando a mainnet (después de validar en testnet).' },
       { type:'task',      s:'todo', title:'Deploy frontend en Vercel',
         desc:'Build de producción. Variables apuntando a contratos en mainnet y backend en Railway.' },
       { type:'milestone', s:'todo', title:'Migrar DNS worldlider.com a Vercel',
