@@ -502,6 +502,7 @@ header {
       <a href="#timeline" class="nav-link">Roadmap</a>
       <a href="#tokenomics" class="nav-link">Tokenomics</a>
       <a href="#precio" class="nav-link">Supply &amp; Precio</a>
+      <a href="#voto" class="nav-link">Voto libre</a>
       <a href="#glosario" class="nav-link">Glosario</a>
     </nav>
   </div>
@@ -877,6 +878,62 @@ header {
   </div>
 </section>
 
+<section class="tokenomics" id="voto">
+  <div class="tk-inner">
+    <div class="tk-eyebrow">Anexo · En evaluación</div>
+    <h2 class="tk-title">Propuesta: votación libre (sin fricción)</h2>
+    <div class="tk-lead">Idea propuesta por Pablo, en evaluación. Acá los pros y las contras para decidir juntos — no es una decisión tomada.</div>
+
+    <!-- LA IDEA -->
+    <div class="tk-block">
+      <div class="tk-block-title">La idea, en 3 puntos</div>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px;">
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:var(--p2);">1</span> <strong style="color:#fff;">Votar es gratis para todos</strong>, verificándose con el número de teléfono (código de país + WhatsApp).</li>
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:var(--p2);">2</span> <strong style="color:#fff;">El token NO se necesita para votar</strong> — el voto se desliga de tener tokens.</li>
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:var(--p2);">3</span> <strong style="color:#fff;">El token habilita features:</strong> proponer un candidato fuera de la lista (ej. 1.000.000 WLT), acceso al consejo, etc.</li>
+      </ul>
+    </div>
+
+    <!-- A FAVOR -->
+    <div class="tk-block">
+      <div class="tk-block-title">A favor</div>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px;">
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:#4ade80;">✓</span> <strong style="color:#fff;">Accesibilidad real:</strong> cualquiera vota gratis, sin wallet ni cripto. Encaja con la visión de votación mundial.</li>
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:#4ade80;">✓</span> <strong style="color:#fff;">WhatsApp es familiar</strong> en todo el mundo (buena UX, sobre todo en Latinoamérica, África y Asia).</li>
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:#4ade80;">✓</span> <strong style="color:#fff;">El token tiene un rol de utilidad claro</strong> (proponer, consejo) en vez de "pagar para votar".</li>
+      </ul>
+    </div>
+
+    <!-- EN CONTRA / A RESOLVER -->
+    <div class="tk-block">
+      <div class="tk-block-title">A resolver (los riesgos)</div>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:11px;">
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:var(--amber);">⚠</span> <strong style="color:#fff;">Fraude (lo más grave):</strong> los teléfonos son baratos de falsificar en masa (números virtuales, granjas de SIMs). Sin la protección de los tokens, alguien puede inflar el resultado con votos de bots — y eso mata la credibilidad.</li>
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:var(--amber);">⚠</span> <strong style="color:#fff;">Costo del WhatsApp:</strong> cada código de verificación se paga (~$0,03 promedio mundial). Una elección de 1.000.000 de votantes ≈ <strong style="color:#fff;">$30.000</strong>; de 10.000.000 ≈ <strong style="color:#fff;">$300.000</strong>. Lo paga el proyecto, sin ingreso de los votantes → <em>el éxito cuesta más</em>.</li>
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:var(--amber);">⚠</span> <strong style="color:#fff;">Datos personales:</strong> juntar teléfonos del mundo activa leyes de protección de datos; vincular teléfono ↔ voto político es <strong style="color:#fff;">dato sensible</strong> (categoría más regulada de GDPR).</li>
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:var(--amber);">⚠</span> <strong style="color:#fff;">El voto deja de ser blockchain:</strong> pasa a un sistema web normal. Decisión válida, pero <strong style="color:#fff;">debe comunicarse con transparencia</strong> al usuario (no venderlo como "votación blockchain transparente").</li>
+        <li style="font-size:12px; color:var(--muted); line-height:1.6; padding-left:22px; position:relative;"><span style="position:absolute; left:0; color:var(--amber);">⚠</span> <strong style="color:#fff;">La cuenta de tokens no cierra:</strong> "1M WLT = $100.000" no coincide con el supply de 144.000M (a precio realista, 1M WLT vale $3,50–35). Ver la pestaña <em>Supply &amp; Precio</em>.</li>
+      </ul>
+    </div>
+
+    <!-- RECOMENDACIÓN -->
+    <div class="tk-block">
+      <div class="tk-block-title">Recomendación del lado técnico: un híbrido</div>
+      <div style="display:flex; gap:11px; align-items:flex-start; background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.25); border-radius:10px; padding:15px 17px;">
+        <div style="font-size:15px; flex-shrink:0; line-height:1.3;">🟢</div>
+        <div style="font-size:11.5px; line-height:1.7; color:rgba(134,239,172,0.9);">No hay que elegir entre accesibilidad y credibilidad — se combinan: <strong style="color:#4ade80;">voto popular gratis por teléfono</strong> (accesibilidad y número grande) <strong style="color:#4ade80;">+ una métrica respaldada por tokens on-chain</strong> (resistente a bots, le da seriedad al resultado) <strong style="color:#4ade80;">+ tokens para features</strong> (proponer, consejo). Así el mundo vota gratis, hay una medida que no se puede inflar con bots, y el token mantiene utilidad.</div>
+      </div>
+    </div>
+
+    <!-- ESTADO -->
+    <div class="tk-note">
+      <div class="tk-note-icon">🗳️</div>
+      <div class="tk-note-body"><strong>En evaluación.</strong> Esto se decide entre Pablo y el socio técnico antes de tocar el diseño del voto. La pregunta que define todo es la primera: <strong>cómo evitar los votos falsos.</strong> Sin respuesta a eso, el modelo no cierra. Lo demás de lo planificado (token, tokenomics, multisig, backend, frontend) no cambia.</div>
+    </div>
+
+  </div>
+</section>
+
 <section class="glossary" id="glosario">
   <div class="gl-inner">
     <div class="gl-eyebrow">Anexo · Diccionario</div>
@@ -1170,7 +1227,7 @@ render();
 
 // ── Pestañas (mostrar una sección a la vez) ──
 (function () {
-  const tabHashes = ['#timeline', '#tokenomics', '#precio', '#glosario'];
+  const tabHashes = ['#timeline', '#tokenomics', '#precio', '#voto', '#glosario'];
   const tabs = document.querySelectorAll('.nav-link');
   function showTab(hash, scroll) {
     tabHashes.forEach(h => {
