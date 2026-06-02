@@ -501,6 +501,7 @@ header {
     <nav class="nav">
       <a href="#timeline" class="nav-link">Roadmap</a>
       <a href="#tokenomics" class="nav-link">Tokenomics</a>
+      <a href="#precio" class="nav-link">Supply &amp; Precio</a>
       <a href="#glosario" class="nav-link">Glosario</a>
     </nav>
   </div>
@@ -694,6 +695,102 @@ header {
     <div class="tk-note">
       <div class="tk-note-icon">⚠️</div>
       <div class="tk-note-body"><strong>Fuera del MVP de votación.</strong> La preventa, el armado del pool y el marco legal son un workstream <strong>aparte</strong> del MVP acordado (token + contrato de voto + backend + frontend). Arrastran el mayor peso legal ("¿es el token un security?") y requieren capital real para llenar el pool. En testnet nada de esto aplica (los tokens de prueba son gratis). Se diseña y decide con Pablo y un abogado especializado antes del lanzamiento en mainnet.</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="tokenomics" id="precio">
+  <div class="tk-inner">
+    <div class="tk-eyebrow">Anexo · Cómo se fija el valor</div>
+    <h2 class="tk-title">Supply, precio y valuación</h2>
+    <div class="tk-lead">Por qué WLT vale fracciones de centavo, qué tres números están atados entre sí, y cuándo se decide cada uno (spoiler: recién antes de mainnet — no compromete el desarrollo).</div>
+
+    <!-- LA REGLA DE ORO -->
+    <div class="tk-block">
+      <div class="tk-block-title">La regla de oro: el precio no se elige solo</div>
+      <div style="font-family:'JetBrains Mono',monospace; text-align:center; font-size:15px; color:#fff; background:var(--surface); border:1px solid var(--border2); border-radius:10px; padding:20px; margin-bottom:14px;">valuación total del proyecto&nbsp;&nbsp;=&nbsp;&nbsp;precio × supply</div>
+      <div class="tk-detail-d">El precio por token no es un número independiente: está <em>encadenado</em> a cuántos tokens existen en total. Con un supply enorme (144.000 millones de WLT), cualquier precio que parezca "normal" implica una valuación gigante. Por eso WLT, para tener una valuación realista, vale obligatoriamente una fracción de centavo. Es matemática, no opinión.</div>
+    </div>
+
+    <!-- POR QUÉ NO UN PRECIO ALTO -->
+    <div class="tk-block">
+      <div class="tk-block-title">Por qué no podemos ponerle un precio "alto"</div>
+      <div class="tk-details">
+        <div class="tk-detail">
+          <div class="tk-detail-n">!</div>
+          <div>
+            <div class="tk-detail-t">Un precio que suena barato puede implicar una valuación irreal</div>
+            <div class="tk-detail-d">Ejemplo: poner el token a <em>$0,002</em> suena baratísimo. Pero $0,002 × 144.000 millones = <em>USD 288.000.000</em> de valuación. Estaríamos afirmando que WorldLider vale 288 millones de dólares el día del lanzamiento, sin usuarios todavía. Nadie compra a ese precio, y la venta pública (50%) tendría que recaudar 144 millones — imposible de arranque.</div>
+          </div>
+        </div>
+        <div class="tk-detail">
+          <div class="tk-detail-n">✓</div>
+          <div>
+            <div class="tk-detail-t">Una valuación realista para un proyecto nuevo</div>
+            <div class="tk-detail-d">Un lanzamiento chico y creíble se valúa en el rango de <em>cientos de miles a pocos millones</em> de dólares. Con 144.000 millones de tokens, eso da un precio de entre <em>$0,0000035 y $0,0000347</em> por WLT. Suena ínfimo, pero es lo coherente — y tiene una ventaja: votar sale casi nada, ideal para una plataforma de votación mundial y accesible.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAS 3 PERILLAS -->
+    <div class="tk-block">
+      <div class="tk-block-title">Las 3 perillas están atadas entre sí</div>
+      <div class="tk-detail-d" style="margin-bottom:14px;">Hay tres números que no se pueden elegir por separado: mové uno y se mueven los demás. De ellos salen las dos cosas que más importan: cuánto cuesta votar y cuánto vale el proyecto.</div>
+      <table style="width:100%; border-collapse:collapse; font-size:12px; margin-bottom:14px;">
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:9px 10px; color:#fff; font-weight:600;">Supply total</td>
+          <td style="padding:9px 10px; color:var(--muted); font-family:'JetBrains Mono',monospace;">144.000.000.000 WLT (a definir)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:9px 10px; color:#fff; font-weight:600;">Mínimo para votar</td>
+          <td style="padding:9px 10px; color:var(--muted); font-family:'JetBrains Mono',monospace;">1.000 WLT (a definir)</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 10px; color:#fff; font-weight:600;">Precio por token</td>
+          <td style="padding:9px 10px; color:var(--muted); font-family:'JetBrains Mono',monospace;">a definir antes de mainnet</td>
+        </tr>
+      </table>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px; line-height:2;">costo de votar&nbsp;&nbsp;=&nbsp;&nbsp;mínimo × precio<br>valuación&nbsp;&nbsp;=&nbsp;&nbsp;supply × precio</div>
+      <div class="tk-detail-d" style="margin-top:12px;">El conflicto en una frase: si querés que <em>votar cueste ~$2</em> (precio $0,002), la valuación se dispara a $288M (irreal). Y si querés una <em>valuación realista</em>, el precio cae tanto que votar con 1.000 WLT cuesta menos de un centavo. Con 144.000 millones de tokens <em>no se pueden tener las dos cosas</em>.</div>
+    </div>
+
+    <!-- LAS 3 OPCIONES -->
+    <div class="tk-block">
+      <div class="tk-block-title">Las 3 formas de resolverlo (decisión con Pablo)</div>
+      <div class="tk-details">
+        <div class="tk-detail">
+          <div class="tk-detail-n">A</div>
+          <div>
+            <div class="tk-detail-t">Bajar el supply (la más limpia)</div>
+            <div class="tk-detail-d">Si fuera 144 <em>millones</em> en vez de 144 <em>mil millones</em> (1.000 veces menos): $0,002 × 144M = $288.000 de valuación (realista) y votar con 1.000 WLT = $2. Todo encaja sin forzar nada. <em>Ojo: el supply de 144.000 millones lo propuso Pablo; cambiarlo es una decisión grande que hay que hablar con él.</em></div>
+          </div>
+        </div>
+        <div class="tk-detail">
+          <div class="tk-detail-n">B</div>
+          <div>
+            <div class="tk-detail-t">Mantener el supply + votar barato</div>
+            <div class="tk-detail-d">Aceptás que WLT es un token sub-centavo (como muchos proyectos grandes). Votar sale fracciones de centavo, <em>buenísimo para la visión de votación mundial y accesible</em>. Las ganancias vienen de acumular muchos tokens, no de un precio alto por unidad.</div>
+          </div>
+        </div>
+        <div class="tk-detail">
+          <div class="tk-detail-n">C</div>
+          <div>
+            <div class="tk-detail-t">Mantener el supply + subir el mínimo para votar</div>
+            <div class="tk-detail-d">Si querés que votar cueste ~$2 con valuación realista, el mínimo tendría que ser ~288.000 WLT en vez de 1.000. Funciona, pero deja números feos y una barrera más confusa de explicar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUÁNDO SE DECIDE -->
+    <div class="tk-block">
+      <div class="tk-block-title">¿Hay que decidir esto ya? No.</div>
+      <div style="display:flex; gap:11px; align-items:flex-start; background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.25); border-radius:10px; padding:15px 17px;">
+        <div style="font-size:15px; flex-shrink:0; line-height:1.3;">🟢</div>
+        <div style="font-size:11.5px; line-height:1.65; color:rgba(134,239,172,0.9);"><strong style="color:#4ade80;">No compromete el código.</strong> Se puede desarrollar TODO el proyecto en testnet con números de prueba y decidir los valores reales recién antes de ir a mainnet. El <strong style="color:#4ade80;">supply</strong> es un parámetro que en testnet se cambia y redeploya gratis infinitas veces; sólo se congela en el mint de mainnet (el único paso irreversible). El <strong style="color:#4ade80;">mínimo para votar</strong> se programa configurable (ajustable incluso después de mainnet). El <strong style="color:#4ade80;">precio</strong> ni siquiera vive en el contrato del token: se define en la venta y al armar el pool, al final de todo. Conviene decidirlo así: con el proyecto andando se ve mucho más claro.</div>
+      </div>
     </div>
 
   </div>
@@ -992,7 +1089,7 @@ render();
 
 // ── Pestañas (mostrar una sección a la vez) ──
 (function () {
-  const tabHashes = ['#timeline', '#tokenomics', '#glosario'];
+  const tabHashes = ['#timeline', '#tokenomics', '#precio', '#glosario'];
   const tabs = document.querySelectorAll('.nav-link');
   function showTab(hash, scroll) {
     tabHashes.forEach(h => {
