@@ -9,6 +9,9 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { scroll-behavior: smooth; }
+#timeline, #tokenomics { scroll-margin-top: 124px; }
+
 :root {
   --bg:      #07090f;
   --surface: #0d1117;
@@ -77,6 +80,16 @@ header {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10.5px; color: var(--muted);
 }
+
+.nav { display: flex; gap: 8px; margin-top: 11px; }
+.nav-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.5px; text-decoration: none;
+  color: var(--muted); padding: 4px 12px;
+  border: 1px solid var(--border); border-radius: 20px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.nav-link:hover { color: var(--text); border-color: var(--border2); background: var(--surface); }
 
 .header-right {
   display: flex; flex-direction: column;
@@ -432,6 +445,10 @@ header {
   <div class="brand">
     <div class="wordmark"><div class="wdot"></div>WorldLider</div>
     <div class="tagline">Base Blockchain · ERC-20 WLT · Voting Platform</div>
+    <nav class="nav">
+      <a href="#timeline" class="nav-link">Roadmap</a>
+      <a href="#tokenomics" class="nav-link">Tokenomics</a>
+    </nav>
   </div>
   <div class="header-right">
     <div class="progress-block">
@@ -452,7 +469,7 @@ header {
 
 <div class="timeline" id="timeline"></div>
 
-<section class="tokenomics">
+<section class="tokenomics" id="tokenomics">
   <div class="tk-inner">
     <div class="tk-eyebrow">Anexo · Economía del token</div>
     <h2 class="tk-title">Tokenomics WLT</h2>
