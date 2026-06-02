@@ -439,6 +439,14 @@ header {
 .tk-detail-t { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
 .tk-detail-d { font-size: 11.5px; color: var(--muted); line-height: 1.6; }
 .tk-detail-d em { color: var(--text); font-style: normal; font-weight: 500; }
+.tk-ref {
+  margin-top: 8px; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--p3); line-height: 1.55;
+}
+.tk-block-note {
+  font-size: 11px; color: var(--muted); line-height: 1.6;
+  margin: -8px 0 16px; font-style: italic;
+}
 
 /* honest note */
 .tk-note {
@@ -611,6 +619,7 @@ header {
     <!-- DETALLES DE LA VENTA -->
     <div class="tk-block">
       <div class="tk-block-title">Detalles de la venta — a definir con Pablo</div>
+      <div class="tk-block-note">Las referencias son rangos orientativos de lo que se suele ver en la industria — no son reglas. Los números finales los definen Pablo y el abogado.</div>
       <div class="tk-details">
 
         <div class="tk-detail">
@@ -618,6 +627,7 @@ header {
           <div>
             <div class="tk-detail-t">La preventa NO usa toda la plata para el pool</div>
             <div class="tk-detail-d">Lo recaudado se <em>divide</em>: una parte va al proyecto (desarrollo, marketing, gastos) y otra a llenar el pool de liquidez. Cuánto a cada lado lo deciden vos y Pablo. No es "todo lo recaudado → pool", es una porción.</div>
+            <div class="tk-ref">Referencia (rango típico): 40%–70% de lo recaudado al pool; muchos launchpads exigen un mínimo de 50%–60%. Más liquidez = precio más estable.</div>
           </div>
         </div>
 
@@ -626,6 +636,7 @@ header {
           <div>
             <div class="tk-detail-t">El precio de preventa suele ser más barato que el de listing</div>
             <div class="tk-detail-d">Ejemplo: preventa a <em>$0,0001</em> y listing (pool) a <em>$0,0002</em>. Premia a quien entró temprano — cuando abre el mercado, su token ya vale más. Es el incentivo clásico para que la gente entre en la preventa. Ese "escalón" lo definen vos y Pablo.</div>
+            <div class="tk-ref">Referencia (rango típico): listing 1,3×–2× el precio de preventa (pasar de 2×–3× es agresivo). En rondas, cada paso sube ~1,2×–1,5×.</div>
           </div>
         </div>
 
@@ -634,6 +645,16 @@ header {
           <div>
             <div class="tk-detail-t">La duración de la preventa es decisión de negocio</div>
             <div class="tk-detail-d">No hay regla fija. Lo típico: <em>2 a 6 semanas</em>, o "hasta llegar a un monto objetivo". A veces se hace en rondas (una privada para inversores grandes a mejor precio, después una pública). Lo definen Pablo + el abogado, porque la forma de la venta es justo lo que mira el regulador.</div>
+            <div class="tk-ref">Referencia (rango típico): 2–6 semanas, o por monto objetivo; en rondas, seed → privada → pública.</div>
+          </div>
+        </div>
+
+        <div class="tk-detail">
+          <div class="tk-detail-n">4</div>
+          <div>
+            <div class="tk-detail-t">Bloqueo de la liquidez (anti rug-pull) ⭐</div>
+            <div class="tk-detail-d">Es estándar <em>bloquear</em> los tokens del pool por un tiempo, para demostrar que el equipo no va a vaciar el pozo y desaparecer (el clásico "rug pull"). Es una señal de confianza enorme para inversores — sin esto, desconfían. Encaja con el objetivo de Pablo de buscar capital. (No estaba contemplado antes; se suma acá.)</div>
+            <div class="tk-ref">Referencia (rango típico): bloqueo de 6–24 meses; muchos proyectos serios la queman o bloquean de forma permanente.</div>
           </div>
         </div>
 
