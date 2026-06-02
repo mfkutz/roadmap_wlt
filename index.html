@@ -684,8 +684,9 @@ const PHASES = [
     sub:  'Análisis y configuración del entorno — sin contacto con Pablo',
     items: [
       { type:'task', s:'done',     title:'Exportar código de Horizons',      desc:'Código fuente descargado y disponible en entorno local.' },
-      { type:'task', s:'done',     title:'Análisis del código exportado',    desc:'Stack confirmado: React 18 + Vite, PocketBase, shadcn/ui, Tailwind, Framer Motion. MetaMask ya integrado.' },
-      { type:'task', s:'progress', title:'Configurar repositorio local',     desc:'Estructura del proyecto en máquina del desarrollador. Roadmap publicado en GitHub Pages.' },
+      { type:'task', s:'done',     title:'Análisis básico del código exportado', desc:'Análisis a nivel stack: React 18 + Vite, PocketBase (que se elimina), shadcn/ui, Tailwind, Framer Motion; MetaMask ya integrado. El detalle fino de qué componentes se reutilizan vs. se rehacen se resuelve al migrar el frontend (F4).' },
+      { type:'task', s:'done',     title:'Planificación y arquitectura del proyecto', desc:'El grueso del trabajo de estos primeros días: definición del modelo de seguridad, tokenomics y las decisiones de diseño que ves documentadas en este roadmap (tarjetas cyan). Incluye la publicación del roadmap en GitHub Pages como documento de alineación con Pablo.' },
+      { type:'task', s:'todo',     title:'Configurar repositorio local',     desc:'Crear el repositorio del proyecto en la máquina del desarrollador con la estructura para contratos, backend y frontend. (El repo del roadmap es aparte y ya está publicado.)' },
       { type:'task', s:'todo',     title:'Entorno de desarrollo blockchain', desc:'Instalar Hardhat. Configurar RPC de Base Sepolia. Variables de entorno.' },
     ]
   },
@@ -732,7 +733,7 @@ const PHASES = [
     name: 'Frontend',
     sub:  'Migración y funcionalidades Web3 — sin contacto con Pablo',
     items: [
-      { type:'task', s:'progress', title:'Migrar frontend de Horizons', desc:'Limpiar plugins de Horizons de vite.config.js. Quitar el cliente y la auth de PocketBase (el login por email se reemplaza por la wallet como identidad). Conservar las páginas de contenido estático (About, Vision, Token, etc.).' },
+      { type:'task', s:'todo', title:'Migrar frontend de Horizons', desc:'Limpiar plugins de Horizons de vite.config.js. Quitar el cliente y la auth de PocketBase (el login por email se reemplaza por la wallet como identidad). Conservar las páginas de contenido estático (About, Vision, Token, etc.).' },
       { type:'task', s:'todo', title:'Integrar wagmi + viem',           desc:'Reemplazar WalletContext actual por wagmi. Soporte para Base Mainnet y Base Sepolia. Detección de red incorrecta.' },
       { type:'decision', s:'todo', title:'El votante necesita un poco de ETH en Base (gas)',
         desc:'Cada voto es una transacción en blockchain, y toda transacción paga una pequeña comisión llamada "gas". En la red Base ese costo es de centavos de dólar — pero el votante necesita tener algo de ETH en Base ADEMÁS de sus WLT. Si llega con WLT pero sin ETH, no podrá votar. Decisión para el MVP: el votante paga su propio gas (simple y muy barato en Base), y la pantalla de votación se lo explica con claridad. Relevante para marketing: al sumar usuarios hay que avisarles que necesitan WLT + un poco de ETH en Base. (Más adelante se podría "patrocinar" el gas para que el votante no pague nada, pero es más complejo y queda fuera del MVP.)' },
