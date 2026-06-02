@@ -10,7 +10,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
-#timeline, #tokenomics { scroll-margin-top: 124px; }
+#timeline, #tokenomics, #glosario { scroll-margin-top: 124px; }
 
 :root {
   --bg:      #07090f;
@@ -459,9 +459,35 @@ header {
 .tk-note-body { font-size: 11.5px; line-height: 1.65; color: rgba(245,158,11,0.78); }
 .tk-note-body strong { color: var(--amber); }
 
+/* ── GLOSARIO SECTION ── */
+.glossary {
+  border-top: 1px solid var(--border);
+  padding: 64px 48px 96px;
+  background: linear-gradient(180deg, rgba(6,182,212,0.04), transparent 45%);
+}
+.gl-inner { max-width: 760px; margin: 0 auto; }
+.gl-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--p3); margin-bottom: 10px;
+}
+.gl-title { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.gl-lead { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 44px; line-height: 1.6; }
+.gl-group { margin-bottom: 34px; }
+.gl-group-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #fff;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 9px;
+}
+.gl-group-title::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: linear-gradient(180deg,#06b6d4,#3b82f6); }
+.gl-term { padding: 11px 0; border-bottom: 1px solid var(--border); }
+.gl-term:last-child { border-bottom: none; }
+.gl-name { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+.gl-def { font-size: 11.5px; color: #8b93a8; line-height: 1.6; }
+
 @media (max-width: 600px) {
   .tokenomics { padding: 48px 20px 64px; }
   .tk-doors { grid-template-columns: 1fr; }
+  .glossary { padding: 48px 20px 64px; }
 }
 </style>
 </head>
@@ -474,6 +500,7 @@ header {
     <nav class="nav">
       <a href="#timeline" class="nav-link">Roadmap</a>
       <a href="#tokenomics" class="nav-link">Tokenomics</a>
+      <a href="#glosario" class="nav-link">Glosario</a>
     </nav>
   </div>
   <div class="header-right">
@@ -666,6 +693,61 @@ header {
     <div class="tk-note">
       <div class="tk-note-icon">⚠️</div>
       <div class="tk-note-body"><strong>Fuera del MVP de votación.</strong> La preventa, el armado del pool y el marco legal son un workstream <strong>aparte</strong> del MVP acordado (token + contrato de voto + backend + frontend). Arrastran el mayor peso legal ("¿es el token un security?") y requieren capital real para llenar el pool. En testnet nada de esto aplica (los tokens de prueba son gratis). Se diseña y decide con Pablo y un abogado especializado antes del lanzamiento en mainnet.</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="glossary" id="glosario">
+  <div class="gl-inner">
+    <div class="gl-eyebrow">Anexo · Diccionario</div>
+    <h2 class="gl-title">Glosario técnico</h2>
+    <div class="gl-lead">Las palabras técnicas del roadmap, explicadas en simple.</div>
+
+    <div class="gl-group">
+      <div class="gl-group-title">Blockchain, lo básico</div>
+      <div class="gl-term"><div class="gl-name">Blockchain</div><div class="gl-def">Un registro público y compartido donde quedan anotadas las transacciones de forma permanente; nadie lo puede borrar ni falsificar.</div></div>
+      <div class="gl-term"><div class="gl-name">Smart contract (contrato inteligente)</div><div class="gl-def">Un programa que vive en la blockchain y se ejecuta solo, según reglas fijas. Una vez publicado, nadie lo puede alterar.</div></div>
+      <div class="gl-term"><div class="gl-name">Wallet (billetera)</div><div class="gl-def">App o dispositivo que guarda tus claves y te identifica en la blockchain (ej: MetaMask). Tu wallet ES tu identidad.</div></div>
+      <div class="gl-term"><div class="gl-name">Gas</div><div class="gl-def">La pequeña comisión que se paga por cada transacción en la red. En Base son centavos de dólar.</div></div>
+      <div class="gl-term"><div class="gl-name">On-chain / Off-chain</div><div class="gl-def">On-chain = dentro de la blockchain (el voto, los tokens). Off-chain = fuera, en una base de datos normal (la foto y bio de un candidato).</div></div>
+      <div class="gl-term"><div class="gl-name">Testnet / Mainnet</div><div class="gl-def">Testnet (Base Sepolia) = red de pruebas, gratis y sin valor real. Mainnet (Base) = la red real, con dinero de verdad.</div></div>
+      <div class="gl-term"><div class="gl-name">Deploy (desplegar)</div><div class="gl-def">Publicar el contrato en la red para que empiece a funcionar.</div></div>
+      <div class="gl-term"><div class="gl-name">Mint (acuñar)</div><div class="gl-def">Crear los tokens por primera vez.</div></div>
+      <div class="gl-term"><div class="gl-name">Supply</div><div class="gl-def">La cantidad total de tokens que existen (144.000 millones de WLT, fija).</div></div>
+      <div class="gl-term"><div class="gl-name">Bloque (block)</div><div class="gl-def">Cada "página" de la blockchain. Se referencia su número para tomar la foto de balances de una elección.</div></div>
+    </div>
+
+    <div class="gl-group">
+      <div class="gl-group-title">Token y mercado</div>
+      <div class="gl-term"><div class="gl-name">ERC-20</div><div class="gl-def">El estándar técnico de los tokens en Ethereum y Base. WLT es un token ERC-20.</div></div>
+      <div class="gl-term"><div class="gl-name">ERC20Votes</div><div class="gl-def">Una extensión de ese estándar (de OpenZeppelin) que agrega la "foto de balances" para votar de forma justa.</div></div>
+      <div class="gl-term"><div class="gl-name">Snapshot (foto de balances)</div><div class="gl-def">El registro de cuánto WLT tenía cada wallet en un momento exacto. Define el poder de voto de cada elección.</div></div>
+      <div class="gl-term"><div class="gl-name">DEX (exchange descentralizado)</div><div class="gl-def">Un mercado on-chain donde se compran y venden tokens sin intermediario (ej: Uniswap).</div></div>
+      <div class="gl-term"><div class="gl-name">Liquidity pool (pool de liquidez)</div><div class="gl-def">El "pozo" de tokens + dinero dentro de un DEX que hace que el token se pueda comprar y vender.</div></div>
+      <div class="gl-term"><div class="gl-name">Stablecoin (USDT / USDC)</div><div class="gl-def">Tokens cuyo valor está atado al dólar (1 USDC ≈ 1 USD). Se usan para comprar otros tokens.</div></div>
+      <div class="gl-term"><div class="gl-name">Rug pull</div><div class="gl-def">Estafa típica donde el equipo retira toda la liquidez y desaparece. El bloqueo de liquidez lo previene.</div></div>
+    </div>
+
+    <div class="gl-group">
+      <div class="gl-group-title">Seguridad y custodia</div>
+      <div class="gl-term"><div class="gl-name">Multisig / Safe (Gnosis Safe)</div><div class="gl-def">Una wallet que necesita varias firmas para mover fondos (ej: 2 de 3). Protege el tesoro del proyecto.</div></div>
+      <div class="gl-term"><div class="gl-name">Vesting / Cliff</div><div class="gl-def">Vesting = liberar tokens de a poco en el tiempo. Cliff = período inicial en el que no se libera nada. Evita ventas de golpe que hunden el precio.</div></div>
+      <div class="gl-term"><div class="gl-name">onlyOwner</div><div class="gl-def">Una restricción del contrato que hace que cierta acción (ej: crear una elección) solo la pueda ejecutar el dueño.</div></div>
+      <div class="gl-term"><div class="gl-name">OpenZeppelin</div><div class="gl-def">La librería estándar de contratos ya auditados que usa casi toda la industria. Reduce muchísimo el riesgo.</div></div>
+      <div class="gl-term"><div class="gl-name">Slither</div><div class="gl-def">Herramienta gratuita que revisa el contrato en busca de vulnerabilidades comunes.</div></div>
+      <div class="gl-term"><div class="gl-name">Sybil (ataque)</div><div class="gl-def">Crear muchas wallets falsas para manipular una votación. Por eso el peso real lo da el WLT, no la cantidad de wallets.</div></div>
+      <div class="gl-term"><div class="gl-name">Firma de wallet (Sign-in with Ethereum)</div><div class="gl-def">Autenticarse firmando un mensaje con la wallet, sin usuario ni contraseña.</div></div>
+    </div>
+
+    <div class="gl-group">
+      <div class="gl-group-title">Desarrollo e infraestructura</div>
+      <div class="gl-term"><div class="gl-name">Indexador</div><div class="gl-def">Servicio que lee los eventos de la blockchain y los guarda para mostrarlos rápido en la web.</div></div>
+      <div class="gl-term"><div class="gl-name">Evento (event)</div><div class="gl-def">Un aviso que emite el contrato cuando pasa algo (ej: un voto). El indexador los escucha.</div></div>
+      <div class="gl-term"><div class="gl-name">Hardhat</div><div class="gl-def">El entorno con el que se programan, prueban y deployan los contratos.</div></div>
+      <div class="gl-term"><div class="gl-name">wagmi / viem</div><div class="gl-def">Librerías que conectan la web con las wallets (MetaMask, etc.).</div></div>
+      <div class="gl-term"><div class="gl-name">BaseScan</div><div class="gl-def">El explorador de Base: un buscador donde se ve cualquier transacción o contrato de la red.</div></div>
+      <div class="gl-term"><div class="gl-name">Faucet</div><div class="gl-def">Un "grifo" que regala tokens de testnet gratis para poder probar.</div></div>
     </div>
 
   </div>
