@@ -921,7 +921,67 @@ header {
       <div class="tk-block-title">Recomendación del lado técnico: un híbrido</div>
       <div style="display:flex; gap:11px; align-items:flex-start; background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.25); border-radius:10px; padding:15px 17px;">
         <div style="font-size:15px; flex-shrink:0; line-height:1.3;">🟢</div>
-        <div style="font-size:11.5px; line-height:1.7; color:rgba(134,239,172,0.9);">No hay que elegir entre accesibilidad y credibilidad — se combinan: <strong style="color:#4ade80;">voto popular gratis por teléfono</strong> (accesibilidad y número grande) <strong style="color:#4ade80;">+ una métrica respaldada por tokens on-chain</strong> (resistente a bots, le da seriedad al resultado) <strong style="color:#4ade80;">+ tokens para features</strong> (proponer, consejo). Así el mundo vota gratis, hay una medida que no se puede inflar con bots, y el token mantiene utilidad.</div>
+        <div style="font-size:11.5px; line-height:1.7; color:rgba(134,239,172,0.9);">No hay que elegir entre accesibilidad y credibilidad — se combinan: <strong style="color:#4ade80;">voto popular gratis (sin cripto)</strong> (accesibilidad y número grande) <strong style="color:#4ade80;">+ una métrica respaldada por tokens on-chain</strong> (resistente a bots, le da seriedad al resultado) <strong style="color:#4ade80;">+ tokens para features</strong> (proponer, consejo). Así el mundo vota gratis, hay una medida que no se puede inflar con bots, y el token mantiene utilidad.<br><br><strong style="color:#4ade80;">Clave para lo que quiere Pablo:</strong> en este modelo los tokens son <strong style="color:#4ade80;">opcionales</strong> — la gente común vota <strong style="color:#fff;">sin tocar cripto</strong>; solo quien ya tiene WLT puede <em>además</em> respaldar. La fricción de token existe solo para quien la elige, no para votar.</div>
+      </div>
+    </div>
+
+    <!-- EL TRILEMA -->
+    <div class="tk-block">
+      <div class="tk-block-title">El trilema: por qué no es fácil</div>
+      <div class="tk-detail-d" style="margin-bottom:14px;">Hay tres cosas deseables y <strong style="color:#fff;">no se pueden tener las tres juntas</strong> — hay que elegir dos:</div>
+      <table style="width:100%; border-collapse:collapse; font-size:11.5px; margin-bottom:16px;">
+        <tr style="border-bottom:1px solid var(--border2); color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.5px;">
+          <td style="padding:8px 8px;">Si elegís estas dos…</td>
+          <td style="padding:8px 8px;">…resignás esta</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:9px 8px; color:#fff; font-weight:600;">Sin fricción + Sin costo</td>
+          <td style="padding:9px 8px; color:var(--muted);">Confiable → entran los bots</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:9px 8px; color:#fff; font-weight:600;">Sin fricción + Confiable</td>
+          <td style="padding:9px 8px; color:var(--muted);">Sin costo → hay que pagar la verificación</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 8px; color:#fff; font-weight:600;">Sin costo + Confiable</td>
+          <td style="padding:9px 8px; color:var(--muted);">Sin fricción → hacen falta tokens</td>
+        </tr>
+      </table>
+      <div class="tk-detail-d" style="margin-bottom:22px;">El detalle que ilumina todo: el <strong style="color:#fff;">requisito de tokens</strong> que se quiere sacar era, en realidad, la forma <em>más barata</em> de tener un voto confiable sin pagar nada (falsear tokens cuesta plata real). Sacarlo obliga a <em>pagar verificación</em> o a <em>aceptar fraude</em>. Por eso no es fácil.</div>
+
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--p2); margin-bottom:10px;">Costo de verificar según el método (estimado, por 1.000.000)</div>
+      <table style="width:100%; border-collapse:collapse; font-size:11.5px; margin-bottom:16px;">
+        <tr style="border-bottom:1px solid var(--border2); color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.5px;">
+          <td style="padding:8px 8px;">Método</td>
+          <td style="padding:8px 8px;">Costo aprox.</td>
+          <td style="padding:8px 8px;">Anti-fraude</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:9px 8px; color:#fff; font-weight:600;">Captcha (Turnstile)</td>
+          <td style="padding:9px 8px; color:#4ade80;">~gratis</td>
+          <td style="padding:9px 8px; color:var(--muted);">Débil — frena bots simples, no el multi-voto</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:9px 8px; color:#fff; font-weight:600;">Email (Amazon SES)</td>
+          <td style="padding:9px 8px; color:var(--muted);">~$100</td>
+          <td style="padding:9px 8px; color:var(--muted);">Débil — una persona tiene varios emails</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:9px 8px; color:#fff; font-weight:600;">Email (Resend / SendGrid)</td>
+          <td style="padding:9px 8px; color:var(--muted);">~$500 – $1.000</td>
+          <td style="padding:9px 8px; color:var(--muted);">Débil</td>
+        </tr>
+        <tr>
+          <td style="padding:9px 8px; color:#fff; font-weight:600;">SMS / WhatsApp</td>
+          <td style="padding:9px 8px; color:var(--amber);">~$30.000</td>
+          <td style="padding:9px 8px; color:var(--muted);">Más fuerte — un teléfono cuesta más de falsear</td>
+        </tr>
+      </table>
+      <div class="tk-detail-d" style="margin-bottom:14px;">Cuanto más barato el método, más débil contra el fraude. No es casualidad: es el trilema otra vez.</div>
+
+      <div style="display:flex; gap:11px; align-items:flex-start; background:var(--surface); border:1px solid var(--border2); border-radius:10px; padding:15px 17px;">
+        <div style="font-size:15px; flex-shrink:0; line-height:1.3;">💡</div>
+        <div style="font-size:11.5px; line-height:1.7; color:var(--muted);"><strong style="color:#fff;">Lo realista con presupuesto ajustado:</strong> voto popular con verificación <strong style="color:#fff;">barata</strong> (captcha / email), aceptando que es un número <strong style="color:#fff;">aproximado y simbólico</strong> (el "número para mostrar"), <strong style="color:#fff;">+ respaldo en WLT opcional</strong> para la capa confiable. Sin WhatsApp masivo. No es perfecto, pero es honesto y sostenible.</div>
       </div>
     </div>
 
